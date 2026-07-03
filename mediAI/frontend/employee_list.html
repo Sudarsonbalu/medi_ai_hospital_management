@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Directory - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>Employee Directory</h1>
+                <p class="main-subtitle">View and filter active, inactive, clinical and administrative staff</p>
+            </div>
+            <div class="flex-gap">
+                <button onclick="window.location.href='employee_add.html'"><i class="fa-solid fa-user-plus"></i> Add Employee</button>
+            </div>
+        </div>
+
+        <!-- Search and Filter Bar -->
+        <div class="search-filter-bar">
+            <div class="search-input-wrapper">
+                <input type="text" id="searchBar" placeholder="Search by name, email, or designation..." oninput="filterEmployees()">
+            </div>
+            <select id="filterDept" onchange="filterEmployees()">
+                <option value="">All Departments</option>
+                <option value="Administration">Administration</option>
+                <option value="Cardiology">Cardiology</option>
+                <option value="Neurology">Neurology</option>
+                <option value="Pediatrics">Pediatrics</option>
+                <option value="Nursing">Nursing</option>
+                <option value="Pharmacy">Pharmacy</option>
+                <option value="Laboratory">Laboratory</option>
+                <option value="Radiology">Radiology</option>
+                <option value="Housekeeping">Housekeeping</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="IT Support">IT Support</option>
+            </select>
+            <select id="filterRole" onchange="filterEmployees()">
+                <option value="">All Roles</option>
+                <option value="Admin">Admin</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Receptionist">Receptionist</option>
+                <option value="Pharmacist">Pharmacist</option>
+                <option value="Lab Technician">Lab Technician</option>
+                <option value="Radiologist">Radiologist</option>
+                <option value="Physiotherapist">Physiotherapist</option>
+                <option value="Dietitian / Nutritionist">Dietitian / Nutritionist</option>
+                <option value="HR Manager">HR Manager</option>
+                <option value="Accountant">Accountant</option>
+                <option value="Medical Records Officer">Medical Records Officer</option>
+                <option value="Ambulance Driver">Ambulance Driver</option>
+                <option value="Security Guard">Security Guard</option>
+                <option value="Housekeeping Staff">Housekeeping Staff</option>
+                <option value="Maintenance Technician">Maintenance Technician</option>
+                <option value="System Administrator">System Administrator</option>
+                <option value="IT Support Engineer">IT Support Engineer</option>
+            </select>
+            <select id="filterStatus" onchange="filterEmployees()">
+                <option value="">All Statuses</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+            </select>
+        </div>
+
+        <!-- Employee Table -->
+        <div class="section-box">
+            <div class="table-container">
+                <table id="employeeTable">
+                    <thead>
+                        <tr>
+                            <th>Employee ID</th>
+                            <th>Full Name</th>
+                            <th>Department</th>
+                            <th>Role & Designation</th>
+                            <th>Email & Phone</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeTableBody">
+                        <tr>
+                            <td colspan="7" style="text-align: center; color: rgba(255, 255, 255, 0.5);">Scanning employee list...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="employee_list.js"></script>
+</body>
+</html>

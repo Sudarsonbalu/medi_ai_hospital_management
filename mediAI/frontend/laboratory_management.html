@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediAI Laboratory Management</title>
+<link rel="stylesheet" href="laboratory_management.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Laboratory Management System</h1>
+
+    <div class="form-box">
+
+        <input type="text" id="patientName" placeholder="Patient Name">
+
+        <select id="testType">
+            <option>Blood Test</option>
+            <option>Urine Test</option>
+            <option>X-Ray</option>
+            <option>MRI Scan</option>
+            <option>CT Scan</option>
+        </select>
+
+        <input type="date" id="testDate">
+
+        <button onclick="addTest()">
+            Schedule Test
+        </button>
+
+    </div>
+
+    <table id="labTable">
+
+        <tr>
+            <th>Patient</th>
+            <th>Test</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+
+    </table>
+
+</div>
+
+<!-- Edit Lab Test Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditModal()">&times;</span>
+        <h3>Edit Scheduled Test</h3>
+        <input type="hidden" id="editTestId">
+        
+        <label for="editPatientName">Patient Name</label>
+        <input type="text" id="editPatientName" placeholder="Patient Name">
+        
+        <label for="editTestType">Test Type</label>
+        <select id="editTestType">
+            <option value="Blood Test">Blood Test</option>
+            <option value="Urine Test">Urine Test</option>
+            <option value="X-Ray">X-Ray</option>
+            <option value="MRI Scan">MRI Scan</option>
+            <option value="CT Scan">CT Scan</option>
+        </select>
+        
+        <label for="editTestDate">Test Date</label>
+        <input type="date" id="editTestDate">
+
+        <label for="editTestStatus">Status</label>
+        <select id="editTestStatus">
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+        
+        <button onclick="saveTestEdit()" class="save-btn">Save Changes</button>
+    </div>
+</div>
+
+<script src="laboratory_management.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

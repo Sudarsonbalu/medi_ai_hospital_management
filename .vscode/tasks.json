@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install Dependencies",
+            "type": "shell",
+            "command": "${workspaceFolder}/mediAI/venv/Scripts/pip",
+            "args": [
+                "install",
+                "-r",
+                "${workspaceFolder}/mediAI/backend/requirements.txt"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Run Migrations",
+            "type": "shell",
+            "command": "${workspaceFolder}/mediAI/venv/Scripts/python",
+            "args": [
+                "${workspaceFolder}/mediAI/backend/migrate.py"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Start Backend Server",
+            "type": "shell",
+            "command": "${workspaceFolder}/mediAI/venv/Scripts/uvicorn",
+            "args": [
+                "app:app",
+                "--reload",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8002"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/mediAI/backend"
+            },
+            "isBackground": true,
+            "problemMatcher": []
+        }
+    ]
+}

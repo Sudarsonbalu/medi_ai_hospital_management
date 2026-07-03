@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run FastAPI Backend (Port 8001)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "args": [
+                "app:app",
+                "--reload",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8001"
+            ],
+            "cwd": "${workspaceFolder}/backend",
+            "jinja": true,
+            "python": "${workspaceFolder}/venv/Scripts/python.exe"
+        },
+        {
+            "name": "Run Database Migrations",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/migrate.py",
+            "cwd": "${workspaceFolder}/backend",
+            "python": "${workspaceFolder}/venv/Scripts/python.exe"
+        },
+        {
+            "name": "Backup Database",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/database/backup_database.py",
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/venv/Scripts/python.exe"
+        },
+        {
+            "name": "Start SSH/Localtunnel Tunnel",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/start_tunnel.py",
+            "cwd": "${workspaceFolder}",
+            "python": "${workspaceFolder}/venv/Scripts/python.exe"
+        }
+    ]
+}

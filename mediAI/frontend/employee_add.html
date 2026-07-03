@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Employee - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>Add New Employee</h1>
+                <p class="main-subtitle">Register a new workforce member and allocate designation details</p>
+            </div>
+            <div class="flex-gap">
+                <a href="employee_list.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back to Directory</a>
+            </div>
+        </div>
+
+        <form id="addEmployeeForm" onsubmit="saveEmployee(event)" class="section-box">
+            <h3>Personal Information</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="fullName">Full Name *</label>
+                    <input type="text" id="fullName" required placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" required placeholder="Enter email address">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" placeholder="Enter phone number">
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    <input type="date" id="dob">
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="bloodGroup">Blood Group</label>
+                    <select id="bloodGroup">
+                        <option value="">Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-grid" style="grid-template-columns: 2fr 1fr;">
+                <div class="form-group">
+                    <label for="address">Residential Address</label>
+                    <textarea id="address" rows="3" placeholder="Enter address details..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="profilePhoto">Profile Photo URL</label>
+                    <input type="text" id="profilePhoto" placeholder="Enter photo image link">
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px;">Employment Details</h3>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="department">Department *</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option value="Administration">Administration</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Neurology">Neurology</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Nursing">Nursing</option>
+                        <option value="Pharmacy">Pharmacy</option>
+                        <option value="Laboratory">Laboratory</option>
+                        <option value="Radiology">Radiology</option>
+                        <option value="Housekeeping">Housekeeping</option>
+                        <option value="Maintenance">Maintenance</option>
+                        <option value="IT Support">IT Support</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="designation">Designation *</label>
+                    <input type="text" id="designation" required placeholder="e.g. Senior Nurse, IT Assistant">
+                </div>
+                <div class="form-group">
+                    <label for="role">System Role *</label>
+                    <select id="role" required>
+                        <option value="">Select Role</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Nurse">Nurse</option>
+                        <option value="Receptionist">Receptionist</option>
+                        <option value="Pharmacist">Pharmacist</option>
+                        <option value="Lab Technician">Lab Technician</option>
+                        <option value="Radiologist">Radiologist</option>
+                        <option value="Physiotherapist">Physiotherapist</option>
+                        <option value="Dietitian / Nutritionist">Dietitian / Nutritionist</option>
+                        <option value="HR Manager">HR Manager</option>
+                        <option value="Accountant">Accountant</option>
+                        <option value="Medical Records Officer">Medical Records Officer</option>
+                        <option value="Ambulance Driver">Ambulance Driver</option>
+                        <option value="Security Guard">Security Guard</option>
+                        <option value="Housekeeping Staff">Housekeeping Staff</option>
+                        <option value="Maintenance Technician">Maintenance Technician</option>
+                        <option value="System Administrator">System Administrator</option>
+                        <option value="IT Support Engineer">IT Support Engineer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="joiningDate">Date of Joining</label>
+                    <input type="date" id="joiningDate">
+                </div>
+                <div class="form-group">
+                    <label for="qualification">Qualifications</label>
+                    <input type="text" id="qualification" placeholder="e.g. MBBS, M.Tech, B.Sc Nursing">
+                </div>
+                <div class="form-group">
+                    <label for="experience">Experience (Years)</label>
+                    <input type="text" id="experience" placeholder="e.g. 5 Years, 10 Months">
+                </div>
+                <div class="form-group">
+                    <label for="salary">Monthly Salary *</label>
+                    <input type="number" id="salary" required step="0.01" placeholder="e.g. 45000">
+                </div>
+                <div class="form-group">
+                    <label for="emergencyContact">Emergency Contact *</label>
+                    <input type="text" id="emergencyContact" required placeholder="Name & Phone number">
+                </div>
+                <div class="form-group">
+                    <label for="status">Employment Status</label>
+                    <select id="status">
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 15px; margin-top: 30px;">
+                <button type="submit"><i class="fa-solid fa-floppy-disk"></i> Register Employee</button>
+                <a href="employee_list.html" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="employee_add.js"></script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediAI - Appointments</title>
+<link rel="stylesheet" href="appointments.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Book an Appointment</h1>
+
+    <div class="appointment-card">
+
+        <input type="text" id="patientName" placeholder="Enter Patient Name">
+
+        <select id="patientGender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+
+        <select id="doctorSelect">
+            <option value="">Select Doctor</option>
+        </select>
+
+        <input type="date" id="appointmentDate">
+
+        <input type="time" id="appointmentTime" style="display: none;"> <!-- Keep hidden if time isn't explicitly used in database date type, or let's just make it date only to match Date type -->
+
+        <button onclick="bookAppointment()">
+            Book Appointment
+        </button>
+
+        <div id="bookingResult"></div>
+
+    </div>
+
+    <!-- Scheduled Appointments Table -->
+    <div class="table-card" style="margin-top: 30px; background: #1e0a10; padding: 25px; border-radius: 20px; box-shadow: 0 0 15px rgba(255,0,127,.2);">
+        <h2 style="color: #ff007f; margin-bottom: 20px; font-size: 20px; font-weight: 600;">Scheduled Appointments</h2>
+        <div style="overflow-x: auto;">
+            <table style="width: 100%; border-collapse: collapse; text-align: left;">
+                <thead>
+                    <tr style="background: #11050a;">
+                        <th style="padding: 12px 15px; color: #ff007f;">Patient Name</th>
+                        <th style="padding: 12px 15px; color: #ff007f;">Gender</th>
+                        <th style="padding: 12px 15px; color: #ff007f;">Doctor</th>
+                        <th style="padding: 12px 15px; color: #ff007f;">Date</th>
+                        <th style="padding: 12px 15px; color: #ff007f;">Status</th>
+                        <th style="padding: 12px 15px; color: #ff007f;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentsTableBody">
+                    <!-- Loaded dynamically -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<!-- Edit Appointment Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditModal()">&times;</span>
+        <h3>Edit Appointment</h3>
+        <input type="hidden" id="editAppointmentId">
+        
+        <label for="editPatientName">Patient Name</label>
+        <input type="text" id="editPatientName" placeholder="Patient Name">
+        
+        <label for="editPatientGender">Gender</label>
+        <select id="editPatientGender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+        </select>
+        
+        <label for="editDoctorSelect">Assigned Doctor</label>
+        <select id="editDoctorSelect">
+            <!-- Loaded dynamically from doctors list -->
+        </select>
+        
+        <label for="editAppointmentDate">Appointment Date</label>
+        <input type="date" id="editAppointmentDate">
+        
+        <label for="editStatus">Status</label>
+        <select id="editStatus">
+            <option value="Booked">Booked</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+        
+        <button onclick="saveAppointmentEdit()" class="save-btn">Save Changes</button>
+    </div>
+</div>
+
+<script src="appointments.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

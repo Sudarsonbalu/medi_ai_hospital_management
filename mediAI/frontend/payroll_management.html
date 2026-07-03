@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll Management - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>Payroll Management Panel</h1>
+                <p class="main-subtitle">Generate monthly payslips, add allowances, specify deductions, and release payments</p>
+            </div>
+            <div class="flex-gap">
+                <a href="employee_dashboard.html" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Dashboard</a>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 25px;">
+            <!-- Generate Payroll Form -->
+            <div class="section-box" style="height: fit-content;">
+                <h3>Generate Monthly Payslip</h3>
+                <form id="payrollForm" onsubmit="submitPayroll(event)">
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="form-group">
+                            <label for="selectEmployee">Select Employee *</label>
+                            <select id="selectEmployee" required onchange="onEmployeeSelect()">
+                                <option value="">Select Staff Member</option>
+                            </select>
+                        </div>
+                        <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 0;">
+                            <div class="form-group">
+                                <label for="payrollMonth">Month *</label>
+                                <select id="payrollMonth" required>
+                                    <option value="January">January</option>
+                                    <option value="February">February</option>
+                                    <option value="March">March</option>
+                                    <option value="April">April</option>
+                                    <option value="May">May</option>
+                                    <option value="June">June</option>
+                                    <option value="July">July</option>
+                                    <option value="August">August</option>
+                                    <option value="September">September</option>
+                                    <option value="October">October</option>
+                                    <option value="November">November</option>
+                                    <option value="December">December</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="payrollYear">Year *</label>
+                                <input type="number" id="payrollYear" required value="2026" min="2020" max="2035">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="basicSalary">Basic Salary (₹) *</label>
+                            <input type="number" id="basicSalary" required step="0.01" value="0.00" oninput="calculateNetSalary()">
+                        </div>
+                        <div class="form-group">
+                            <label for="allowances">Allowances (₹)</label>
+                            <input type="number" id="allowances" step="0.01" value="0.00" oninput="calculateNetSalary()">
+                        </div>
+                        <div class="form-group">
+                            <label for="deductions">Deductions (₹)</label>
+                            <input type="number" id="deductions" step="0.01" value="0.00" oninput="calculateNetSalary()">
+                        </div>
+                        <div class="form-group" style="padding: 10px; background: rgba(255,0,127,0.05); border: 1px dashed rgba(255,0,127,0.2); border-radius: 8px;">
+                            <label style="font-weight:600; color:#ff007f;">Calculated Net Salary:</label>
+                            <span id="netSalaryText" style="font-size: 18px; font-weight:700; color:white;">₹0.00</span>
+                        </div>
+                        <div class="form-group">
+                            <label for="payrollStatus">Payment Status</label>
+                            <select id="payrollStatus">
+                                <option value="Unpaid">Unpaid</option>
+                                <option value="Paid">Paid</option>
+                            </select>
+                        </div>
+                        <button type="submit" style="margin-top: 10px;"><i class="fa-solid fa-file-invoice-dollar"></i> Save Payslip</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Payroll History Table -->
+            <div class="section-box">
+                <h3>Salary Payment History</h3>
+                <div id="historyPlaceholder" style="padding: 15px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:10px; margin-bottom:15px; text-align:center;">
+                    Please select an employee to view their salary logs.
+                </div>
+                
+                <div class="table-container" id="historyTableContainer" style="display:none;">
+                    <table id="historyTable">
+                        <thead>
+                            <tr>
+                               <th>Month / Year</th>
+                               <th>Basic</th>
+                               <th>Allowances</th>
+                               <th>Deductions</th>
+                               <th>Net Salary</th>
+                               <th>Status</th>
+                               <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr><td colspan="7" style="text-align:center; color:rgba(255,255,255,0.4);">No payslips recorded.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="payroll_management.js"></script>
+</body>
+</html>

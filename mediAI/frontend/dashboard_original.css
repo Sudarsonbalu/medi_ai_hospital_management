@@ -1,0 +1,209 @@
+Created At: 2026-06-20T11:35:21Z
+Completed At: 2026-06-20T11:35:21Z
+File Path: `file:///d:/PROJEC%20T/mediAI/frontend/dashboard.css`
+Total Lines: 201
+Total Bytes: 3647
+Showing lines 1 to 201
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+2: 
+3: *{
+4: margin:0;
+5: padding:0;
+6: box-sizing:border-box;
+7: font-family:'Poppins', sans-serif;
+8: }
+9: 
+10: body{
+11: display:flex;
+12: background:#0f050a;
+13: color:white;
+14: min-height:100vh;
+15: }
+16: 
+17: .sidebar{
+18: width:260px;
+19: background:#11050a;
+20: padding:25px;
+21: display:flex;
+22: flex-direction:column;
+23: border-right: 1px solid rgba(255, 255, 255, 0.05);
+24: }
+25: 
+26: .brand {
+27:     display: flex;
+28:     align-items: center;
+29:     gap: 12px;
+30:     margin-bottom: 40px;
+31: }
+32: 
+33: .brand img {
+34:     width: 40px;
+35:     height: 40px;
+36:     border-radius: 10px;
+37:     box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+38: }
+39: 
+40: .brand h2 {
+41:     color:#ff007f;
+42:     font-size:24px;
+43:     text-shadow:0 0 10px #ff007f;
+44:     font-weight: 700;
+45: }
+46: 
+47: .sidebar ul{
+48: list-style:none;
+49: }
+50: 
+51: .sidebar li{
+52: padding:15px;
+53: margin:10px 0;
+54: background:#1f0a10;
+55: border-radius:10px;
+56: cursor:pointer;
+57: transition: all 0.3s ease;
+58: display: flex;
+59: align-items: center;
+60: gap: 12px;
+61: font-weight: 500;
+62: font-size: 15px;
+63: }
+64: 
+65: .sidebar li i {
+66:     color: #ff007f;
+67:     font-size: 18px;
+68:     width: 20px;
+69:     text-align: center;
+70: }
+71: 
+72: .sidebar li:hover{
+73: background:#ff007f;
+74: color:black;
+75: box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+76: }
+77: 
+78: .sidebar li:hover i {
+79:     color: black;
+80: }
+81: 
+82: .main{
+83: flex:1;
+84: padding:40px;
+85: }
+86: 
+87: .topbar{
+88: margin-bottom:35px;
+89: }
+90: 
+91: .topbar h1 {
+92:     font-size: 32px;
+93:     font-weight: 700;
+94:     color: #ff007f;
+95:     text-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+96: }
+97: 
+98: .cards{
+99: display:grid;
+100: grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+101: gap:20px;
+102: }
+103: 
+104: .card{
+105: background:#1e0a10;
+106: padding:30px 20px;
+107: border-radius:20px;
+108: text-align:center;
+109: box-shadow:0 4px 15px rgba(0,0,0,0.2);
+110: cursor:pointer;
+111: transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+112: border: 1px solid rgba(255, 255, 255, 0.05);
+113: display: flex;
+114: flex-direction: column;
+115: align-items: center;
+116: gap: 12px;
+117: }
+118: 
+119: .card:hover{
+120: transform: translateY(-5px);
+121: box-shadow:0 0 25px rgba(255,0,127,.5);
+122: border-color: rgba(255, 0, 127, 0.4);
+123: }
+124: 
+125: .card h2{
+126: color:#ff007f;
+127: font-size:35px;
+128: font-weight: 700;
+129: text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+130: }
+131: 
+132: .card p {
+133:     font-weight: 500;
+134:     color: rgba(255, 255, 255, 0.9);
+135: }
+136: 
+137: .welcome{
+138: margin-top:40px;
+139: padding:35px;
+140: background:#1e0a10;
+141: border-radius:20px;
+142: border: 1px solid rgba(255, 255, 255, 0.05);
+143: box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+144: }
+145: 
+146: .welcome h2 {
+147:     color: #ff007f;
+148:     margin-bottom: 15px;
+149:     font-weight: 600;
+150: }
+151: 
+152: .welcome p {
+153:     color: rgba(255, 255, 255, 0.85);
+154:     line-height: 1.6;
+155: }
+156: 
+157: /* Floating AI Assistant FAB */
+158: .ai-fab {
+159:     position: fixed;
+160:     bottom: 30px;
+161:     right: 30px;
+162:     width: 60px;
+163:     height: 60px;
+164:     background: #ff007f;
+165:     color: black !important;
+166:     border-radius: 50%;
+167:     display: flex;
+168:     justify-content: center;
+169:     align-items: center;
+170:     font-size: 26px;
+171:     cursor: pointer;
+172:     box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+173:     transition: all 0.3s ease;
+174:     z-index: 10000;
+175:     border: 2px solid #0f050a;
+176:     animation: pulse 2s infinite;
+177: }
+178: 
+179: .ai-fab:hover {
+180:     transform: scale(1.1) rotate(10deg);
+181:     background: white;
+182:     color: #ff007f !important;
+183:     box-shadow: 0 0 30px rgba(255, 0, 127, 0.9);
+184: }
+185: 
+186: @keyframes pulse {
+187:     0% {
+188:         box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7);
+189:     }
+190:     70% {
+191:         box-shadow: 0 0 0 15px rgba(255, 0, 127, 0);
+192:     }
+193:     100% {
+194:         box-shadow: 0 0 0 0 rgba(255, 0, 127, 0);
+195:     }
+196: }
+197: 
+198: .sidebar-credit a:hover {
+199:     color: #ff007f !important;
+200:     text-shadow: 0 0 8px #ff007f;
+201: }
+The above content shows the entire, complete file contents of the requested file.

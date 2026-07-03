@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Profile - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .profile-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        .profile-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.7);
+        }
+        .profile-tab:hover {
+            background: rgba(255, 0, 127, 0.1);
+            color: white;
+        }
+        .profile-tab.active {
+            background: #ff007f;
+            color: black;
+            font-weight: bold;
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>Employee Profile</h1>
+                <p class="main-subtitle">Detailed overview of workforce record and activities</p>
+            </div>
+            <div class="flex-gap">
+                <button onclick="editCurrentProfile()" style="background:#00f2fe; color:black; box-shadow:0 0 10px rgba(0,242,254,0.3);"><i class="fa-solid fa-user-pen"></i> Edit Profile</button>
+                <a href="employee_list.html" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Back to Directory</a>
+            </div>
+        </div>
+
+        <!-- Profile Header Widget -->
+        <div class="section-box profile-header">
+            <img id="profilePhoto" src="https://via.placeholder.com/150" alt="Avatar" class="profile-avatar">
+            <div class="profile-title">
+                <h2 id="employeeName">-</h2>
+                <p id="employeeDesignation" style="font-weight: 600; color: #ff007f;"></p>
+                <p id="employeeDepartment" style="margin-top: 5px;"></p>
+                <div style="margin-top: 10px;">
+                    <span id="employeeStatus" class="badge">Active</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs Navigation -->
+        <div class="profile-tabs">
+            <div class="profile-tab active" onclick="switchProfileTab('info')"><i class="fa-solid fa-circle-info"></i> Details</div>
+            <div class="profile-tab" onclick="switchProfileTab('attendance')"><i class="fa-solid fa-calendar-days"></i> Attendance</div>
+            <div class="profile-tab" onclick="switchProfileTab('leaves')"><i class="fa-solid fa-plane-departure"></i> Leaves</div>
+            <div class="profile-tab" onclick="switchProfileTab('shifts')"><i class="fa-solid fa-business-time"></i> Shifts</div>
+            <div class="profile-tab" onclick="switchProfileTab('payroll')"><i class="fa-solid fa-file-invoice-dollar"></i> Payroll</div>
+            <div class="profile-tab" onclick="switchProfileTab('performance')"><i class="fa-solid fa-star"></i> Performance & Tasks</div>
+        </div>
+
+        <!-- PANEL: Info -->
+        <div id="panel-info" class="tab-panel active">
+            <div class="section-box">
+                <h3>Personal Information</h3>
+                <div class="detail-grid">
+                    <div class="detail-item"><label>Gender</label><span id="detailGender">-</span></div>
+                    <div class="detail-item"><label>Date of Birth</label><span id="detailDob">-</span></div>
+                    <div class="detail-item"><label>Blood Group</label><span id="detailBloodGroup">-</span></div>
+                    <div class="detail-item"><label>Email Address</label><span id="detailEmail">-</span></div>
+                    <div class="detail-item"><label>Phone Number</label><span id="detailPhone">-</span></div>
+                    <div class="detail-item"><label>Emergency Contact</label><span id="detailEmergency">-</span></div>
+                </div>
+                <div class="detail-item" style="margin-top: 20px;">
+                    <label>Residential Address</label>
+                    <span id="detailAddress">-</span>
+                </div>
+            </div>
+
+            <div class="section-box">
+                <h3>Job & Professional Experience</h3>
+                <div class="detail-grid">
+                    <div class="detail-item"><label>Department</label><span id="detailDept">-</span></div>
+                    <div class="detail-item"><label>Designation</label><span id="detailDesignation">-</span></div>
+                    <div class="detail-item"><label>System Role</label><span id="detailRole">-</span></div>
+                    <div class="detail-item"><label>Date of Joining</label><span id="detailJoining">-</span></div>
+                    <div class="detail-item"><label>Qualification</label><span id="detailQualification">-</span></div>
+                    <div class="detail-item"><label>Experience</label><span id="detailExperience">-</span></div>
+                    <div class="detail-item"><label>Salary</label><span id="detailSalary">-</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL: Attendance -->
+        <div id="panel-attendance" class="tab-panel">
+            <div class="section-box">
+                <div class="flex-header">
+                    <h3>Attendance Logs</h3>
+                    <button onclick="window.location.href='attendance_management.html'" class="btn-small"><i class="fa-solid fa-clock"></i> Manage Attendance</button>
+                </div>
+                <div class="table-container">
+                    <table id="attendanceTable">
+                        <thead>
+                            <tr>
+                               <th>Date</th>
+                               <th>Check-In</th>
+                               <th>Check-Out</th>
+                               <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <tr><td colspan="4" style="text-align:center; color:rgba(255,255,255,0.4);">No attendance logs recorded.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL: Leaves -->
+        <div id="panel-leaves" class="tab-panel">
+            <div class="section-box">
+                <div class="flex-header">
+                    <h3>Leave Logs & Requests</h3>
+                    <button onclick="window.location.href='leave_management.html'" class="btn-small"><i class="fa-solid fa-plane-departure"></i> Manage Leaves</button>
+                </div>
+                <div class="table-container">
+                    <table id="leavesTable">
+                        <thead>
+                            <tr>
+                               <th>Leave Type</th>
+                               <th>Start Date</th>
+                               <th>End Date</th>
+                               <th>Reason</th>
+                               <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leavesTableBody">
+                            <tr><td colspan="5" style="text-align:center; color:rgba(255,255,255,0.4);">No leave logs recorded.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL: Shifts -->
+        <div id="panel-shifts" class="tab-panel">
+            <div class="section-box">
+                <div class="flex-header">
+                    <h3>Shift Allocation Scheduler</h3>
+                    <button onclick="window.location.href='shift_management.html'" class="btn-small"><i class="fa-solid fa-business-time"></i> Assign Shift</button>
+                </div>
+                <div class="table-container">
+                    <table id="shiftsTable">
+                        <thead>
+                            <tr>
+                               <th>Day</th>
+                               <th>Shift Type</th>
+                               <th>Start Time</th>
+                               <th>End Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="shiftsTableBody">
+                            <tr><td colspan="4" style="text-align:center; color:rgba(255,255,255,0.4);">No shifts scheduled.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL: Payroll -->
+        <div id="panel-payroll" class="tab-panel">
+            <div class="section-box">
+                <div class="flex-header">
+                    <h3>Payroll & Monthly Payslips</h3>
+                    <button onclick="window.location.href='payroll_management.html'" class="btn-small"><i class="fa-solid fa-file-invoice-dollar"></i> Manage Payroll</button>
+                </div>
+                <div class="table-container">
+                    <table id="payrollTable">
+                        <thead>
+                            <tr>
+                               <th>Month / Year</th>
+                               <th>Basic Salary</th>
+                               <th>Allowances</th>
+                               <th>Deductions</th>
+                               <th>Net Salary</th>
+                               <th>Status</th>
+                               <th>Payment Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="payrollTableBody">
+                            <tr><td colspan="7" style="text-align:center; color:rgba(255,255,255,0.4);">No payroll history recorded.</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL: Performance -->
+        <div id="panel-performance" class="tab-panel">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <!-- Performance evaluations -->
+                <div class="section-box">
+                    <div class="flex-header">
+                        <h3>Performance Reviews</h3>
+                        <button onclick="window.location.href='performance_management.html'" class="btn-small"><i class="fa-solid fa-plus"></i> Evaluate</button>
+                    </div>
+                    <div id="performanceList" style="display:flex; flex-direction:column; gap:12px; margin-top:15px;">
+                        <p style="color:rgba(255,255,255,0.4); text-align:center; padding:15px;">No evaluations recorded.</p>
+                    </div>
+                </div>
+
+                <!-- Assigned Tasks -->
+                <div class="section-box">
+                    <div class="flex-header">
+                        <h3>Assigned Tasks</h3>
+                        <button onclick="window.location.href='performance_management.html'" class="btn-small"><i class="fa-solid fa-tasks"></i> Assign Task</button>
+                    </div>
+                    <div class="table-container">
+                        <table id="tasksTable">
+                            <thead>
+                                <tr>
+                                   <th>Task</th>
+                                   <th>Due Date</th>
+                                   <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tasksTableBody">
+                                <tr><td colspan="3" style="text-align:center; color:rgba(255,255,255,0.4);">No tasks assigned.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="employee_profile.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="config.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI Login</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body>
+
+    <nav>
+        <h1>MediAI</h1>
+        <ul>
+            <li><a href="home.html#hero-section">Home</a></li>
+            <li><a href="home.html#reports-section">Reports</a></li>
+            <li><a href="home.html#contact-section">Contact & Feedback</a></li>
+            <li><a href="index.html" class="login-link active">Login</a></li>
+        </ul>
+    </nav>
+
+    <div class="login-container">
+        <div class="login-box">
+            <h1 id="mainTitle">MediAI</h1>
+            <h3 id="formTitle">Healthcare Management System - Login</h3>
+
+            <form id="authForm">
+                <input type="text" id="name" placeholder="Full Name" style="display: none;">
+                <input type="email" id="email" placeholder="Email Address" required>
+                <input type="password" id="password" placeholder="Password" required>
+
+                <select id="role" style="display: none;">
+                    <option value="Patient">Register as Patient</option>
+                    <option value="Doctor">Register as Doctor</option>
+                    <option value="Admin">Register as Admin</option>
+                </select>
+
+                <div id="patientFields" style="display: none;">
+                    <input type="number" id="age" placeholder="Age">
+                    <select id="gender">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="text" id="phone" placeholder="Phone Number">
+                    <textarea id="address" placeholder="Address" style="width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: white; box-sizing: border-box; font-family: inherit; font-size: 14px; resize: vertical; min-height: 80px;"></textarea>
+                    <input type="text" id="emergencyContact" placeholder="Emergency Contact Name & Phone"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn">Login</button>
+
+                <p id="toggleText">Don't have an account? <a href="#" id="authToggle">Register</a></p>
+                <p style="margin-top: 15px; font-size: 14px;"><a href="home.html"
+                        style="color: #ff007f; text-decoration: none; font-weight: 500;">View Features & Capabilities
+                        →</a></p>
+                <p style="margin-top: 25px; font-size: 13px; color: rgba(255, 255, 255, 0.5); font-weight: 300;">
+                    Developed by <span
+                        style="color: #ff007f; font-weight: 600; text-shadow: 0 0 5px rgba(255, 0, 127, 0.3);">Sudarson,
+                        B.Tech AI & DS</span></p>
+                <div class="dev-links"
+                    style="margin-top: 10px; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                    <a href="mailto:sudarsonbalu@gmail.com" title="sudarsonbalu@gmail.com"
+                        style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: 0.3s;"><i
+                            class="fa-solid fa-envelope"></i></a>
+                    <a href="tel:9361138890" title="+91 9361138890"
+                        style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: 0.3s;"><i
+                            class="fa-solid fa-phone"></i></a>
+                    <a href="https://www.linkedin.com/in/sudarson-balu-8110a1308" target="_blank" title="LinkedIn"
+                        style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: 0.3s;"><i
+                            class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://github.com/Sudarsonbalu" target="_blank" title="GitHub"
+                        style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px; transition: 0.3s;"><i
+                            class="fa-brands fa-github"></i></a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="login.js"></script>
+
+</body>
+
+</html>

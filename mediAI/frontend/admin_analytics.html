@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting - MediAI</title>
+    <script>
+        window.location.href = "super_admin.html";
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="brand">
+        <img src="pink_neon_logo.png" alt="MediAI Logo">
+        <h2>MediAI Admin</h2>
+    </div>
+
+    <ul>
+        <li><i class="fa-solid fa-house"></i> Dashboard</li>
+        <li class="active"><i class="fa-solid fa-chart-line"></i> Admin Analytics</li>
+        <li><i class="fa-solid fa-truck-medical"></i> Emergency Booking</li>
+        <li><i class="fa-solid fa-calendar-check"></i> Appointments</li>
+        <li><i class="fa-solid fa-hospital-user"></i> Patients</li>
+        <li><i class="fa-solid fa-file-medical"></i> Reports</li>
+        <li><i class="fa-solid fa-prescription-bottle-medical"></i> Prescriptions</li>
+        <li><i class="fa-solid fa-flask"></i> Laboratory</li>
+        <li><i class="fa-solid fa-robot"></i> AI Assistant</li>
+        <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+</div>
+
+<div class="main">
+    <div class="header">
+        <h1>Administrative Analytics</h1>
+        <p>Real-time clinical operations summary and data insights</p>
+    </div>
+
+    <!-- Numerical summary cards -->
+    <div class="metrics-grid">
+        <div class="metric-card">
+            <div class="card-icon"><i class="fa-solid fa-hospital-user"></i></div>
+            <div class="card-info">
+                <h3 id="statPatients">-</h3>
+                <p>Registered Patients</p>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="card-icon"><i class="fa-solid fa-user-doctor"></i></div>
+            <div class="card-info">
+                <h3 id="statDoctors">-</h3>
+                <p>On-Duty Doctors</p>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="card-icon"><i class="fa-solid fa-flask"></i></div>
+            <div class="card-info">
+                <h3 id="statLabTests">-</h3>
+                <p>Laboratory Tests</p>
+            </div>
+        </div>
+
+        <div class="metric-card">
+            <div class="card-icon"><i class="fa-solid fa-pills"></i></div>
+            <div class="card-info">
+                <h3 id="statPharmacyItems">-</h3>
+                <p>Medicines in Stock</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphs & Visualizations Grid -->
+    <div class="charts-grid">
+        <!-- Appointments Progress Card -->
+        <div class="chart-card">
+            <h3>Appointments Status breakdown</h3>
+            <p class="chart-subtitle">Distribution of scheduled client sessions</p>
+            
+            <div class="progress-bar-container">
+                <div class="progress-row">
+                    <span class="label">Booked</span>
+                    <span class="value" id="valBooked">0</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill fill-booked" id="barBooked" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-row">
+                    <span class="label">Completed</span>
+                    <span class="value" id="valCompleted">0</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill fill-completed" id="barCompleted" style="width: 0%"></div>
+                </div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-row">
+                    <span class="label">Cancelled</span>
+                    <span class="value" id="valCancelled">0</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-fill fill-cancelled" id="barCancelled" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Dial Chart -->
+        <div class="chart-card">
+            <h3>Emergency Severity Triage</h3>
+            <p class="chart-subtitle">Triage classifications breakdown</p>
+            
+            <div class="dial-container">
+                <svg width="200" height="200" viewBox="0 0 200 200" class="svg-dial">
+                    <!-- Outer Glow Ring -->
+                    <circle cx="100" cy="100" r="80" class="dial-bg"></circle>
+                    <circle cx="100" cy="100" r="80" class="dial-value" id="dialCritical" stroke="#ef4444" stroke-dasharray="502" stroke-dashoffset="502"></circle>
+                    <circle cx="100" cy="100" r="65" class="dial-bg"></circle>
+                    <circle cx="100" cy="100" r="65" class="dial-value" id="dialHigh" stroke="#f97316" stroke-dasharray="408" stroke-dashoffset="408"></circle>
+                    <circle cx="100" cy="100" r="50" class="dial-bg"></circle>
+                    <circle cx="100" cy="100" r="50" class="dial-value" id="dialModerate" stroke="#eab308" stroke-dasharray="314" stroke-dashoffset="314"></circle>
+                </svg>
+                <div class="dial-legend">
+                    <div class="legend-item"><span class="dot" style="background:#ef4444;"></span> Critical: <strong id="lblCritical">0</strong></div>
+                    <div class="legend-item"><span class="dot" style="background:#f97316;"></span> High: <strong id="lblHigh">0</strong></div>
+                    <div class="legend-item"><span class="dot" style="background:#eab308;"></span> Moderate: <strong id="lblModerate">0</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory / Financial Analytics -->
+    <div class="analytics-row" style="margin-top: 35px;">
+        <div class="chart-card full-width">
+            <div class="financial-box">
+                <div class="financial-info">
+                    <h3>Pharmacy Inventory Assessment</h3>
+                    <p>Aggregated capital values of stocked items</p>
+                    <div class="stock-total-display">
+                        <span class="currency">₹</span>
+                        <h2 id="pharmacyTotalValue">0.00</h2>
+                    </div>
+                </div>
+                <div class="financial-stats">
+                    <div class="f-stat">
+                        <span class="label">Total Stock Items</span>
+                        <span class="val" id="statStockItems">0</span>
+                    </div>
+                    <div class="f-stat">
+                        <span class="label">Emergency Cases handled</span>
+                        <span class="val" id="statEmergencies">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="admin_analytics.js"></script>
+<script src="navigation.js"></script>
+</body>
+</html>

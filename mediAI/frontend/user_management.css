@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+body {
+    background: #0f050a;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    padding: 30px;
+    padding-top: 60px; /* Add padding for dynamic Back to Dashboard button */
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #ff007f;
+    font-size: 36px;
+    margin-bottom: 25px;
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+}
+
+.form-card,
+.table-card {
+    background: rgba(30, 10, 16, 0.6);
+    backdrop-filter: blur(15px);
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 20px;
+    border: 1px solid rgba(255, 0, 127, 0.15);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.form-card h2,
+.table-card h2 {
+    color: white;
+    font-size: 20px;
+    margin-bottom: 20px;
+    border-left: 4px solid #ff007f;
+    padding-left: 12px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 12px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    background: #11050a;
+    color: white;
+    outline: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+input:focus, select:focus {
+    border-color: #ff007f;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+button {
+    padding: 12px 24px;
+    background: #ff007f;
+    color: black;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: 0.3s;
+}
+
+button:hover {
+    box-shadow: 0 0 15px #ff007f;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+table {
+    width: 100%;
+    margin-top: 15px;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+th, td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 0, 127, 0.1);
+}
+
+th {
+    background: rgba(17, 5, 10, 0.8);
+    color: #ff007f;
+    font-weight: 600;
+}
+
+tr:hover {
+    background: rgba(255, 0, 127, 0.03);
+}
+
+code {
+    background: rgba(255,255,255,0.08);
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+/* Badges */
+.role-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.role-patient {
+    background: rgba(59, 130, 246, 0.2);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.role-doctor {
+    background: rgba(168, 85, 247, 0.2);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.role-admin {
+    background: rgba(255, 0, 127, 0.2);
+    color: #ff007f;
+    border: 1px solid rgba(255, 0, 127, 0.4);
+}
+
+/* Modal Styling */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 5, 10, 0.85);
+    backdrop-filter: blur(8px);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background: #1e0a10;
+    border: 1px solid rgba(255, 0, 127, 0.35);
+    border-radius: 20px;
+    padding: 35px;
+    width: 450px;
+    box-shadow: 0 0 30px rgba(255, 0, 127, 0.4);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-content h3 {
+    color: #ff007f;
+    font-size: 22px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px rgba(255, 0, 127, 0.3);
+}
+
+.modal-content label {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 5px;
+    font-weight: 500;
+}
+
+.modal-content input,
+.modal-content select {
+    background: #11050a;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    color: #ef4444;
+}
+
+.save-btn {
+    margin-top: 15px;
+    background: #ff007f;
+    color: black;
+}
+
+.save-btn:hover {
+    box-shadow: 0 0 20px #ff007f;
+}
+
+/* Action buttons */
+.action-btn {
+    padding: 6px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    margin-right: 8px;
+    transition: 0.2s;
+    color: white;
+}
+
+.btn-edit {
+    background: #3b82f6;
+}
+
+.btn-edit:hover {
+    box-shadow: 0 0 10px #3b82f6;
+    transform: translateY(-1px);
+}
+
+.btn-delete {
+    background: #ef4444;
+}
+
+.btn-delete:hover {
+    box-shadow: 0 0 10px #ef4444;
+    transform: translateY(-1px);
+}

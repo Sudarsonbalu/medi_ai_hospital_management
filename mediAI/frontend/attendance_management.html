@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Management - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>Attendance Tracking Panel</h1>
+                <p class="main-subtitle">Log check-ins, record check-outs, and review today's active roster</p>
+            </div>
+            <div class="flex-gap">
+                <a href="employee_dashboard.html" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Dashboard</a>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 25px;">
+            <!-- Attendance Logger Form -->
+            <div class="section-box" style="height: fit-content;">
+                <h3>Log Staff Attendance</h3>
+                <form id="attendanceForm" onsubmit="submitAttendance(event)">
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="form-group">
+                            <label for="selectEmployee">Select Employee *</label>
+                            <select id="selectEmployee" required>
+                                <option value="">Select Staff Member</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="attendanceDate">Log Date *</label>
+                            <input type="date" id="attendanceDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkInTime">Check-In Time</label>
+                            <input type="time" id="checkInTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkOutTime">Check-Out Time</label>
+                            <input type="time" id="checkOutTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="attendanceStatus">Status</label>
+                            <select id="attendanceStatus">
+                                <option value="Present">Present</option>
+                                <option value="Late">Late</option>
+                                <option value="Half Day">Half Day</option>
+                                <option value="Absent">Absent</option>
+                            </select>
+                        </div>
+                        <button type="submit" style="margin-top: 10px;"><i class="fa-solid fa-clock-rotate-left"></i> Save Attendance</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Today's Attendance Roster -->
+            <div class="section-box">
+                <h3>Today's Attendance Roster</h3>
+                <div class="table-container">
+                    <table id="todayAttendanceTable">
+                        <thead>
+                            <tr>
+                               <th>Staff Name</th>
+                               <th>Department</th>
+                               <th>Role</th>
+                               <th>Check-In</th>
+                               <th>Check-Out</th>
+                               <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="todayAttendanceTableBody">
+                            <tr><td colspan="6" style="text-align:center; color:rgba(255,255,255,0.4);">Loading today's roster...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="attendance_management.js"></script>
+</body>
+</html>

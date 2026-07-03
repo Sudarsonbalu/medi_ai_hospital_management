@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - MediAI</title>
+    <link rel="stylesheet" href="doctor_dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="brand">
+        <img src="pink_neon_logo.png" alt="MediAI Logo">
+        <h2>MediAI Doctor</h2>
+    </div>
+
+    <ul>
+        <li><i class="fa-solid fa-house"></i> Dashboard</li>
+        <li><i class="fa-solid fa-truck-medical" style="color: #f87171;"></i> Emergency Booking</li>
+        <li><i class="fa-solid fa-calendar-check"></i> Appointments</li>
+        <li><i class="fa-solid fa-hospital-user"></i> Patients</li>
+        <li><i class="fa-solid fa-file-medical"></i> Reports</li>
+        <li><i class="fa-solid fa-prescription-bottle-medical"></i> Prescriptions</li>
+        <li><i class="fa-solid fa-flask"></i> Laboratory</li>
+        <li><i class="fa-solid fa-robot"></i> AI Assistant</li>
+        <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+    </ul>
+</div>
+
+<div class="main">
+
+    <h1>Doctor Dashboard</h1>
+
+    <div class="cards">
+
+        <div class="card" onclick="window.location.href='patient_management.html'">
+            <i class="fa-solid fa-hospital-user" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+            <h2 id="statPatients">-</h2>
+            <p>Manage Patients</p>
+        </div>
+
+        <div class="card" onclick="window.location.href='medical_reports.html'">
+            <i class="fa-solid fa-file-medical" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+            <h2 id="statPendingReports">-</h2>
+            <p>Pending Reports</p>
+        </div>
+
+        <div class="card" onclick="window.location.href='appointment.html'">
+            <i class="fa-solid fa-calendar-check" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+            <h2 id="statAppointments">-</h2>
+            <p>Appointments</p>
+        </div>
+
+        <div class="card" onclick="window.location.href='pharmacy_management.html'">
+            <i class="fa-solid fa-prescription-bottle-medical" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+            <h2 id="statPrescriptions">-</h2>
+            <p>Prescriptions</p>
+        </div>
+
+        <div class="card" onclick="window.location.href='laboratory_management.html'">
+            <i class="fa-solid fa-flask" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+            <h2 id="statLaboratory">-</h2>
+            <p>Laboratory</p>
+        </div>
+
+        <div class="card" style="cursor: default;">
+            <i class="fa-solid fa-bullseye" style="font-size: 28px; color: #2ecc71; margin-bottom: 5px;"></i>
+            <h2 style="color: #2ecc71;">96%</h2>
+            <p>Diagnosis Accuracy</p>
+        </div>
+
+    </div>
+
+    <div class="appointments">
+
+        <h2>Today's Appointments</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>John</td>
+                    <td>10:00 AM</td>
+                    <td>Confirmed</td>
+                </tr>
+
+                <tr>
+                    <td>Sarah</td>
+                    <td>11:30 AM</td>
+                    <td>Waiting</td>
+                </tr>
+
+                <tr>
+                    <td>David</td>
+                    <td>02:00 PM</td>
+                    <td>Confirmed</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+<!-- Floating AI Assistant Shortcut -->
+<a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+    <i class="fa-solid fa-robot"></i>
+</a>
+
+<script src="navigation.js"></script>
+<script src="doctor_dashboard.js"></script>
+</body>
+</html>

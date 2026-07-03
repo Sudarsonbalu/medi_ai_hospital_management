@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .leave-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+        .leave-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.7);
+        }
+        .leave-tab:hover {
+            background: rgba(255, 0, 127, 0.1);
+            color: white;
+        }
+        .leave-tab.active {
+            background: #ff007f;
+            color: black;
+            font-weight: bold;
+        }
+        .tab-panel {
+            display: none;
+        }
+        .tab-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>Leave Management Hub</h1>
+                <p class="main-subtitle">Submit leave requests and evaluate pending staff applications</p>
+            </div>
+            <div class="flex-gap">
+                <a href="employee_dashboard.html" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Dashboard</a>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 2.5fr; gap: 25px;">
+            <!-- Request Leave Form -->
+            <div class="section-box" style="height: fit-content;">
+                <h3>Submit Leave Request</h3>
+                <form id="leaveForm" onsubmit="submitLeave(event)">
+                    <div style="display:flex; flex-direction:column; gap:15px;">
+                        <div class="form-group">
+                            <label for="selectEmployee">Select Employee *</label>
+                            <select id="selectEmployee" required>
+                                <option value="">Select Staff Member</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="leaveType">Leave Type *</label>
+                            <select id="leaveType" required>
+                                <option value="Sick Leave">Sick Leave</option>
+                                <option value="Casual Leave">Casual Leave</option>
+                                <option value="Maternity Leave">Maternity Leave</option>
+                                <option value="Paternity Leave">Paternity Leave</option>
+                                <option value="Unpaid Leave">Unpaid Leave</option>
+                                <option value="Annual Leave">Annual Leave</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="startDate">Start Date *</label>
+                            <input type="date" id="startDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="endDate">End Date *</label>
+                            <input type="date" id="endDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="leaveReason">Reason *</label>
+                            <textarea id="leaveReason" rows="3" required placeholder="Describe the reason for leave..."></textarea>
+                        </div>
+                        <button type="submit" style="margin-top: 10px;"><i class="fa-solid fa-paper-plane"></i> Submit Request</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Leave Roster Logs -->
+            <div class="section-box">
+                <div class="leave-tabs">
+                    <div class="leave-tab active" onclick="switchLeaveTab('pending')"><i class="fa-solid fa-hourglass-half"></i> Pending Approvals</div>
+                    <div class="leave-tab" onclick="switchLeaveTab('all')"><i class="fa-solid fa-list"></i> Leave History</div>
+                </div>
+
+                <!-- PANEL: Pending -->
+                <div id="panel-pending" class="tab-panel active">
+                    <div class="table-container">
+                        <table id="pendingLeavesTable">
+                            <thead>
+                                <tr>
+                                   <th>Staff Member</th>
+                                   <th>Type</th>
+                                   <th>Duration</th>
+                                   <th>Reason</th>
+                                   <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pendingLeavesTableBody">
+                                <tr><td colspan="5" style="text-align:center; color:rgba(255,255,255,0.4);">Loading pending requests...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- PANEL: All (History) -->
+                <div id="panel-all" class="tab-panel">
+                    <div class="table-container">
+                        <table id="allLeavesTable">
+                            <thead>
+                                <tr>
+                                   <th>Staff Member</th>
+                                   <th>Type</th>
+                                   <th>Duration</th>
+                                   <th>Reason</th>
+                                   <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allLeavesTableBody">
+                                <tr><td colspan="5" style="text-align:center; color:rgba(255,255,255,0.4);">Loading leave logs...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="leave_management.js"></script>
+</body>
+</html>

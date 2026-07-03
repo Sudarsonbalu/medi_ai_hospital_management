@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance & Tasks - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>Performance & Task Assignment</h1>
+                <p class="main-subtitle">Conduct staff appraisals, award ratings, and assign task checklist items</p>
+            </div>
+            <div class="flex-gap">
+                <a href="employee_dashboard.html" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Dashboard</a>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 25px; max-width: 400px;">
+            <div class="form-group">
+                <label for="selectEmployee" style="font-weight:600; font-size:14px; color:#ff007f;">Select Employee *</label>
+                <select id="selectEmployee" required onchange="onEmployeeSelect()">
+                    <option value="">Select Staff Member</option>
+                </select>
+            </div>
+        </div>
+
+        <div id="noEmployeeSelectedAlert" style="padding: 30px; background: rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.05); border-radius:15px; text-align:center;">
+            Please select an employee from the dropdown above to manage performance appraisals and task lists.
+        </div>
+
+        <div id="mainDashboardPanels" style="display:none;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-bottom: 25px;">
+                <!-- Performance Appraisal Form -->
+                <div class="section-box" style="height: fit-content;">
+                    <h3>Submit Performance Review</h3>
+                    <form id="performanceForm" onsubmit="submitPerformance(event)">
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+                            <div class="form-group">
+                                <label for="evaluationRating">Rating *</label>
+                                <select id="evaluationRating" required>
+                                    <option value="5">5 Stars (Excellent)</option>
+                                    <option value="4">4 Stars (Very Good)</option>
+                                    <option value="3">3 Stars (Good)</option>
+                                    <option value="2">2 Stars (Fair)</option>
+                                    <option value="1">1 Star (Needs Improvement)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="evaluationFeedback">Feedback Comments *</label>
+                                <textarea id="evaluationFeedback" rows="3" required placeholder="Describe evaluation comments or milestones reached..."></textarea>
+                            </div>
+                            <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 0;">
+                                <div class="form-group">
+                                    <label for="evaluationDate">Evaluation Date *</label>
+                                    <input type="date" id="evaluationDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="evaluatorName">Evaluator Name *</label>
+                                    <input type="text" id="evaluatorName" required placeholder="Manager Name">
+                                </div>
+                            </div>
+                            <button type="submit" style="margin-top: 10px;"><i class="fa-solid fa-star"></i> Submit Review</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Task Assignment Form -->
+                <div class="section-box" style="height: fit-content;">
+                    <h3>Assign New Task</h3>
+                    <form id="taskForm" onsubmit="submitTask(event)">
+                        <div style="display:flex; flex-direction:column; gap:15px;">
+                            <div class="form-group">
+                                <label for="taskTitle">Task Title *</label>
+                                <input type="text" id="taskTitle" required placeholder="e.g. Audit ward inventory">
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDescription">Description</label>
+                                <textarea id="taskDescription" rows="3" placeholder="Specify instructions or checklists..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="taskDueDate">Due Date *</label>
+                                <input type="date" id="taskDueDate" required>
+                            </div>
+                            <button type="submit" style="margin-top: 10px;"><i class="fa-solid fa-list-check"></i> Assign Task</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 25px;">
+                <!-- Review Logs -->
+                <div class="section-box">
+                    <h3>Review Logs</h3>
+                    <div id="reviewsList" style="display:flex; flex-direction:column; gap:15px; margin-top:15px;">
+                        <p style="color:rgba(255,255,255,0.4); text-align:center; padding:15px;">No evaluations recorded.</p>
+                    </div>
+                </div>
+
+                <!-- Task Logs -->
+                <div class="section-box">
+                    <h3>Active Tasks & Checklists</h3>
+                    <div class="table-container">
+                        <table id="tasksTable">
+                            <thead>
+                                <tr>
+                                   <th>Task Details</th>
+                                   <th>Due Date</th>
+                                   <th>Status</th>
+                                   <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tasksTableBody">
+                                <tr><td colspan="4" style="text-align:center; color:rgba(255,255,255,0.4);">No tasks assigned.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="performance_management.js"></script>
+</body>
+</html>

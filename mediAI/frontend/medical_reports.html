@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI - Medical Reports & Records</title>
+    <link rel="stylesheet" href="medical_reports.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Medical Reports & Records Vault</h1>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('analyzer')">
+                <i class="fa-solid fa-robot"></i> AI Report Analyzer
+            </button>
+            <button class="tab-btn" onclick="switchTab('vault')">
+                <i class="fa-solid fa-vault"></i> Medical Records Vault
+            </button>
+        </div>
+
+        <!-- AI Report Analyzer Tab -->
+        <div id="tab-analyzer" class="tab-content active">
+            <div class="card-panel">
+                <div class="card-title">
+                    <i class="fa-solid fa-microscope"></i> AI Interactive Report Analysis
+                </div>
+                <p style="margin-bottom: 20px; color: rgba(255,255,255,0.7); font-size: 14px;">
+                    Upload a clinical report (PDF/Image) to parse key symptoms, diagnose risk areas, and fetch recommendations using advanced medical AI.
+                </p>
+                <div class="upload-box" onclick="document.getElementById('reportFile').click()">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <p>Click here to choose a PDF or Image clinical report</p>
+                    <input type="file" id="reportFile" class="file-input" onchange="updateFileInfo('reportFile', 'fileInfoAnalyzer')">
+                    <div id="fileInfoAnalyzer" class="selected-file-info"></div>
+                </div>
+
+                <button class="btn-primary" onclick="analyzeReport()">
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> Run AI Analysis
+                </button>
+
+                <div id="analysisResult" style="display: none;">
+                    <h2>AI Analysis Result</h2>
+                    <div id="analysisContent"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical Records Vault Tab -->
+        <div id="tab-vault" class="tab-content">
+            <div class="vault-layout">
+                
+                <!-- Left Column: Upload New File -->
+                <div class="card-panel">
+                    <div class="card-title">
+                        <i class="fa-solid fa-file-upload"></i> Upload Record
+                    </div>
+                    <form id="vaultUploadForm" onsubmit="uploadRecord(event)">
+                        <div class="form-group">
+                            <label class="form-label" for="vaultFile">Select File (PDF/Image)</label>
+                            <input type="file" id="vaultFile" class="input-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="recordType">Record Type</label>
+                            <select id="recordType" class="input-control" required>
+                                <option value="">Select Type</option>
+                                <option value="Lab Report">Lab Report</option>
+                                <option value="Prescription">Prescription</option>
+                                <option value="Scan / X-Ray">Scan / X-Ray</option>
+                                <option value="Discharge Summary">Discharge Summary</option>
+                                <option value="Vaccination Record">Vaccination Record</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="recordDescription">Description / Notes</label>
+                            <textarea id="recordDescription" class="input-control" placeholder="E.g., Blood test results from June 2026" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary" style="margin-top: 10px;">
+                            <i class="fa-solid fa-upload"></i> Upload to Vault
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right Column: List & Search Records -->
+                <div class="card-panel">
+                    <div class="card-title">
+                        <i class="fa-solid fa-folder-open"></i> File Archive
+                    </div>
+                    
+                    <!-- Search Bar -->
+                    <div class="search-container">
+                        <input type="text" id="vaultSearch" class="input-control search-input" placeholder="Search by type or description...">
+                        <button class="btn-primary" style="width: auto; padding: 12px 20px; margin-top: 0;" onclick="loadRecords()">
+                            <i class="fa-solid fa-magnifying-glass"></i> Search
+                        </button>
+                    </div>
+
+                    <!-- Records Table -->
+                    <div class="records-table-container">
+                        <table class="records-table" id="recordsTable" style="display: none;">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Description</th>
+                                    <th>Uploaded At</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recordsList">
+                                <!-- Dynamically populated -->
+                            </tbody>
+                        </table>
+                        <div id="recordsEmptyState" class="empty-state">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>No medical records found in your archive.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Toast Notifications container -->
+    <div id="toastContainer"></div>
+
+    <script src="medical_reports.js"></script>
+    <script src="navigation.js"></script>
+</body>
+</html>

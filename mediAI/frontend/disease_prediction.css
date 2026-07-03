@@ -1,0 +1,47 @@
+body{
+    background:#0f050a;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:Segoe UI;
+}
+
+.card{
+    width:600px;
+    padding:40px;
+    background:#1e0a10;
+    border-radius:20px;
+    box-shadow:0 0 20px rgba(255,0,127,.3);
+}
+
+h1{
+    color:#ff007f;
+    text-align:center;
+}
+
+input,select{
+    width:100%;
+    padding:14px;
+    margin:12px 0;
+    border:none;
+    border-radius:10px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    background:#ff007f;
+    border:none;
+    border-radius:10px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#result{
+    margin-top:25px;
+    color:white;
+    background:#11050a;
+    padding:20px;
+    border-radius:10px;
+}

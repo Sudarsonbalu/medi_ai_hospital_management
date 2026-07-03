@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Booking - MediAI</title>
+    <link rel="stylesheet" href="emergency.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<div class="sidebar">
+    <div class="brand">
+        <img src="pink_neon_logo.png" alt="MediAI Logo">
+        <h2>MediAI Triage</h2>
+    </div>
+
+    <ul>
+        <!-- Dynamically rendered by navigation.js -->
+    </ul>
+</div>
+
+<div class="main">
+    <div class="alert-banner">
+        <i class="fa-solid fa-triangle-exclamation beacon"></i>
+        <span>EMERGENCY MODULE - TRIAGE PERSISTENCE SYSTEM</span>
+    </div>
+
+    <div class="emergency-grid">
+        <!-- Emergency Report Form -->
+        <div class="report-box">
+            <h3>Register Emergency Booking</h3>
+            <form id="emergencyForm">
+                <label for="patientName">Patient Name</label>
+                <input type="text" id="patientName" placeholder="Enter Full Name" required>
+
+                <label for="contactPhone">Contact Phone</label>
+                <input type="text" id="contactPhone" placeholder="Enter Contact Number" required>
+
+                <label for="severity">Severity Level</label>
+                <select id="severity" required>
+                    <option value="Critical">🔴 Critical (Immediate Attention)</option>
+                    <option value="High">🟠 High (Urgent)</option>
+                    <option value="Moderate">🟡 Moderate (Standard Evaluation)</option>
+                </select>
+
+                <label for="symptoms">Symptoms / Details</label>
+                <textarea id="symptoms" placeholder="Describe symptoms or injury details..." required></textarea>
+
+                <!-- Geolocation Tracking Widget -->
+                <div class="location-sharing-box" style="margin-bottom: 20px; padding: 15px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-size: 14px; font-weight: 500; color: white;"><i class="fa-solid fa-location-crosshairs" style="color: #ff007f; margin-right: 5px;"></i> GPS Coordinates</span>
+                        <button type="button" onclick="getCurrentLocation()" style="background: #ff007f; color: black; border: none; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; cursor: pointer; transition: 0.3s;">
+                            Fetch GPS
+                        </button>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <span style="font-size: 11px; color: rgba(255,255,255,0.5);">Latitude</span>
+                            <input type="text" id="latitude" placeholder="Not Shared" readonly style="width: 100%; padding: 8px; font-size: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #ff007f; border-radius: 4px; cursor: default; margin-top: 4px; margin-bottom: 0;">
+                        </div>
+                        <div>
+                            <span style="font-size: 11px; color: rgba(255,255,255,0.5);">Longitude</span>
+                            <input type="text" id="longitude" placeholder="Not Shared" readonly style="width: 100%; padding: 8px; font-size: 12px; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1); color: #ff007f; border-radius: 4px; cursor: default; margin-top: 4px; margin-bottom: 0;">
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 12px;">
+                        <input type="checkbox" id="liveTrackingToggle" onchange="toggleLiveTracking(this.checked)" style="cursor: pointer; margin: 0; width: 16px; height: 16px;">
+                        <label for="liveTrackingToggle" style="font-size: 13px; font-weight: 500; cursor: pointer; color: rgba(255,255,255,0.85); user-select: none;">
+                            Enable Live Location Sharing
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="emergency-btn">
+                    <i class="fa-solid fa-truck-medical"></i> Dispatch Emergency Request
+                </button>
+            </form>
+        </div>
+
+        <!-- Emergency Monitor / List -->
+        <div class="monitor-box">
+            <h3>Live Triage Monitor</h3>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patient Name</th>
+                            <th>Contact</th>
+                            <th>Severity</th>
+                            <th>Assigned Doctor</th>
+                            <th>Status</th>
+                            <th class="action-column">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="emergencyTriageBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="emergency.js"></script>
+<script src="navigation.js"></script>
+</body>
+</html>

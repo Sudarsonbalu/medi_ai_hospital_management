@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Management - MediAI</title>
+    <link rel="stylesheet" href="doctor_management.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Doctor Management</h1>
+
+    <div class="form-box">
+        <input type="text" id="doctorName" placeholder="Doctor Name">
+
+        <input type="text" id="specialization" placeholder="Specialization">
+
+        <input type="text" id="department" placeholder="Department">
+
+        <select id="availability">
+            <option>Available</option>
+            <option>Busy</option>
+            <option>On Leave</option>
+        </select>
+
+        <button onclick="addDoctor()">Add Doctor</button>
+    </div>
+
+    <table id="doctorTable">
+        <tr>
+            <th>Name</th>
+            <th>Specialization</th>
+            <th>Department</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </table>
+
+</div>
+
+<!-- Edit Doctor Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditModal()">&times;</span>
+        <h3>Edit Doctor Profile</h3>
+        <input type="hidden" id="editDoctorId">
+        
+        <label for="editDoctorName">Doctor Name</label>
+        <input type="text" id="editDoctorName" placeholder="Doctor Name">
+        
+        <label for="editSpecialization">Specialization</label>
+        <input type="text" id="editSpecialization" placeholder="Specialization">
+        
+        <label for="editDepartment">Department</label>
+        <input type="text" id="editDepartment" placeholder="Department">
+        
+        <label for="editAvailability">Availability Status</label>
+        <select id="editAvailability">
+            <option value="Available">Available</option>
+            <option value="Busy">Busy</option>
+            <option value="On Leave">On Leave</option>
+        </select>
+        
+        <button onclick="saveDoctorEdit()" class="save-btn">Save Changes</button>
+    </div>
+</div>
+
+<script src="doctor_management.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins', sans-serif;
+}
+
+body{
+display:flex;
+background:#0f050a;
+color:white;
+min-height:100vh;
+}
+
+.sidebar{
+width:260px;
+background:#11050a;
+padding:25px;
+display:flex;
+flex-direction:column;
+border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 40px;
+}
+
+.brand img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+}
+
+.brand h2 {
+    color:#ff007f;
+    font-size:24px;
+    text-shadow:0 0 10px #ff007f;
+    font-weight: 700;
+}
+
+.sidebar ul{
+list-style:none;
+}
+
+.sidebar li{
+padding:15px;
+margin:10px 0;
+background:#1f0a10;
+border-radius:10px;
+cursor:pointer;
+transition: all 0.3s ease;
+display: flex;
+align-items: center;
+gap: 12px;
+font-weight: 500;
+font-size: 15px;
+}
+
+.sidebar li i {
+    color: #ff007f;
+    font-size: 18px;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar li:hover{
+background:#ff007f;
+color:black;
+box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+}
+
+.sidebar li:hover i {
+    color: black;
+}
+
+.main{
+flex:1;
+padding:40px;
+}
+
+.topbar{
+margin-bottom:35px;
+}
+
+.topbar h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ff007f;
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.2);
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+gap:20px;
+}
+
+.card{
+background:#1e0a10;
+padding:30px 20px;
+border-radius:20px;
+text-align:center;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+cursor:pointer;
+transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+border: 1px solid rgba(255, 255, 255, 0.05);
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 12px;
+}
+
+.card:hover{
+transform: translateY(-5px);
+box-shadow:0 0 25px rgba(255,0,127,.5);
+border-color: rgba(255, 0, 127, 0.4);
+}
+
+.card h2{
+color:#ff007f;
+font-size:35px;
+font-weight: 700;
+text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+}
+
+.card p {
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.welcome{
+margin-top:40px;
+padding:35px;
+background:#1e0a10;
+border-radius:20px;
+border: 1px solid rgba(255, 255, 255, 0.05);
+box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+.welcome h2 {
+    color: #ff007f;
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+.welcome p {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+}
+
+/* Floating AI Assistant FAB */
+.ai-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: #ff007f;
+    color: black !important;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.6);
+    transition: all 0.3s ease;
+    z-index: 10000;
+    border: 2px solid #0f050a;
+    animation: pulse 2s infinite;
+}
+
+.ai-fab:hover {
+    transform: scale(1.1) rotate(10deg);
+    background: white;
+    color: #ff007f !important;
+    box-shadow: 0 0 30px rgba(255, 0, 127, 0.9);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 127, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 0, 127, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 0, 127, 0);
+    }
+}
+
+.sidebar-credit a:hover {
+    color: #ff007f !important;
+    text-shadow: 0 0 8px #ff007f;
+}

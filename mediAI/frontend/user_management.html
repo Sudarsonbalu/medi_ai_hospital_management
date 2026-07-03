@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediAI - User Accounts Management</title>
+<link rel="stylesheet" href="user_management.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>User Accounts Management</h1>
+
+    <!-- Create User Card -->
+    <div class="form-card">
+        <h2>Add Registered User</h2>
+        <div class="form-grid">
+            <input type="text" id="addName" placeholder="Full Name" required>
+            <input type="email" id="addEmail" placeholder="Email Address" required>
+            <input type="password" id="addPassword" placeholder="Password" required>
+            <select id="addRole" style="padding: 12px; margin: 10px 0; border: none; border-radius: 8px; background: white; color: black; font-weight: bold;">
+                <option value="Patient">Patient</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+        <button onclick="addUser()">Add Account</button>
+    </div>
+
+    <!-- User Listing Card -->
+    <div class="table-card">
+        <h2>Registered Accounts</h2>
+        
+        <!-- Search filter -->
+        <input type="text" id="searchFilter" onkeyup="filterUsers()" placeholder="🔍 Search accounts by name, email, or role..." style="margin-bottom: 15px; padding: 12px; background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; width: 100%;">
+
+        <table id="userTable">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="userTableBody">
+                <!-- User rows injected here -->
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Edit User Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditModal()">&times;</span>
+        <h3>Edit User Account</h3>
+        <input type="hidden" id="editUserId">
+        
+        <label for="editName">Full Name</label>
+        <input type="text" id="editName" placeholder="Full Name">
+        
+        <label for="editEmail">Email Address</label>
+        <input type="email" id="editEmail" placeholder="Email Address">
+        
+        <label for="editRole">Account Role</label>
+        <select id="editRole" style="padding: 12px; margin: 10px 0; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; background: #11050a; color: white;">
+            <option value="Patient">Patient</option>
+            <option value="Doctor">Doctor</option>
+            <option value="Admin">Admin</option>
+        </select>
+        
+        <label for="editPassword">Reset Password (leave blank to keep current)</label>
+        <input type="password" id="editPassword" placeholder="New Password">
+        
+        <button onclick="saveUserEdit()" class="save-btn">Save Changes</button>
+    </div>
+</div>
+
+<script src="user_management.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

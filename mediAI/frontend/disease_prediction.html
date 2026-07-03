@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Disease Prediction</title>
+<link rel="stylesheet" href="disease_prediction.css">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="card">
+        <h1>AI Disease Prediction</h1>
+
+        <form>
+
+            <input type="number" id="age" placeholder="Age">
+
+            <input type="number" id="bloodPressure" placeholder="Blood Pressure">
+
+            <input type="number" id="glucoseLevel" placeholder="Glucose Level">
+
+            <input type="number" id="cholesterol" placeholder="Cholesterol">
+
+            <select id="symptom">
+                <option value="">Select Symptom</option>
+                <option value="Fever">Fever</option>
+                <option value="Cough">Cough</option>
+                <option value="Chest Pain">Chest Pain</option>
+                <option value="Headache">Headache</option>
+            </select>
+
+            <button type="button" onclick="predictDisease()">
+                Predict Disease
+            </button>
+
+        </form>
+
+        <div id="result">
+            Prediction Result Will Appear Here
+        </div>
+
+    </div>
+
+</div>
+
+<script src="disease_prediction.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

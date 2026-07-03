@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediAI AI Assistant</title>
+<link rel="stylesheet" href="chatbot.css">
+</head>
+<body>
+
+<div class="chat-container">
+
+    <div class="chat-header">
+        <h1>MediAI Assistant</h1>
+        <p>AI Healthcare Support</p>
+    </div>
+
+    <div class="chat-box" id="chatBox">
+
+        <div class="bot-message">
+            Hello! I am MediAI. How can I help you today?
+        </div>
+
+    </div>
+
+    <div class="input-area">
+        <input
+            type="text"
+            id="userInput"
+            placeholder="Describe your symptoms..."
+        >
+
+        <button onclick="sendMessage()">
+            Send
+        </button>
+    </div>
+
+</div>
+
+<script src="chatbot.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

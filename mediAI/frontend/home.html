@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediAI - Home</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+<div class="overlay">
+
+    <nav>
+        <h1>MediAI</h1>
+        <ul>
+            <li><a href="#hero-section">Home</a></li>
+            <li><a href="#reports-section">Reports</a></li>
+            <li><a href="#contact-section">Contact & Feedback</a></li>
+            <li><a href="index.html" class="login-link">Login</a></li>
+            <li><a href="admin_login.html" class="admin-portal-link" style="color: #ff4d4d; font-weight: bold; border: 1px solid #ff4d4d; padding: 8px 18px; border-radius: 20px; transition: 0.3s; text-decoration: none;">Admin Portal</a></li>
+        </ul>
+    </nav>
+
+    <div id="hero-section" class="hero">
+        <div class="glass-card" style="width: 800px; text-align: center; padding: 60px;">
+            <h1>MediAI Hospital</h1>
+            <p style="font-size: 22px; color: white; margin-top: 15px; font-weight: 300;">
+                Providing Intelligent Healthcare, Clinical Report Analysis, & AI Diagnoses.
+            </p>
+            <button onclick="window.location.href='index.html'" style="margin-top: 35px;">Access Portal</button>
+        </div>
+    </div>
+
+    <div id="reports-section" class="section-container">
+        <div class="glass-card" style="width: 1000px;">
+            <h2>Hospital Detailed Report</h2>
+            <p style="margin-bottom: 30px; font-size: 16px; color: rgba(255,255,255,0.85); text-align: center;">
+                Overview of MediAI Hospital operations, clinical capacities, active departments, and quality performance indices.
+            </p>
+            
+            <div class="hospital-report-grid">
+                <!-- Operational Performance Stats -->
+                <div class="metric-section">
+                    <h3>Operational Statistics</h3>
+                    <div class="hospital-metric-row">
+                        <div class="hospital-stat-box">
+                            <span class="stat-label">Patients Treated</span>
+                            <span class="stat-number">15,000+</span>
+                        </div>
+                        <div class="hospital-stat-box">
+                            <span class="stat-label">Specialist Doctors</span>
+                            <span class="stat-number">85+</span>
+                        </div>
+                        <div class="hospital-stat-box">
+                            <span class="stat-label">Recovery Rate</span>
+                            <span class="stat-number">98.5%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Facilities & Capacities -->
+                <div class="metric-section">
+                    <h3>Clinical Facilities & Status</h3>
+                    <div class="hospital-facility-list">
+                        <div class="facility-item">
+                            <span class="facility-name">Emergency Ward (ER)</span>
+                            <span class="facility-status status-active">24/7 Active</span>
+                        </div>
+                        <div class="facility-item">
+                            <span class="facility-name">ICU Beds Occupancy</span>
+                            <span class="facility-status status-available">32 Beds Free</span>
+                        </div>
+                        <div class="facility-item">
+                            <span class="facility-name">AI Diagnostic Labs</span>
+                            <span class="facility-status status-active">Online</span>
+                        </div>
+                        <div class="facility-item">
+                            <span class="facility-name">Pharmacy Inventory</span>
+                            <span class="facility-status status-full">94% Stocked</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certified Departments -->
+            <div class="departments-report" style="margin-top: 30px; padding-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.15);">
+                <h3 style="color: #ff007f; font-size: 18px; margin-bottom: 15px; text-shadow: 0 0 10px rgba(255,0,127,0.3);">Key Active Departments</h3>
+                <div class="dept-pills">
+                    <span class="dept-pill">Cardiology</span>
+                    <span class="dept-pill">Neurology</span>
+                    <span class="dept-pill">Oncology</span>
+                    <span class="dept-pill">Pediatrics</span>
+                    <span class="dept-pill">Orthopedics</span>
+                    <span class="dept-pill">General Medicine</span>
+                </div>
+            </div>
+
+            <!-- Accreditations & Certifications -->
+            <div class="accreditations-footer" style="margin-top: 30px; display: flex; justify-content: center; gap: 35px; font-size: 14px; color: rgba(255,255,255,0.7); border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px;">
+                <span>🛡️ <strong>JCI</strong> Accredited Hospital</span>
+                <span>🏆 <strong>ISO 9001:2015</strong> Quality Certified</span>
+                <span>⭐ <strong>4.9 / 5.0</strong> Patient Rating</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact-section" class="section-container">
+        <div class="glass-card contact-card" style="width: 1000px;">
+            <div class="contact-grid">
+                <div class="contact-info" style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <h3>Contact Us</h3>
+                    <img src="pink_neon_support.png" alt="Medical Support" style="width: 180px; height: 180px; margin: 15px 0; border-radius: 10px; background: rgba(255,255,255,0.1); padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);">
+                    <div style="text-align: left; width: 100%; padding-left: 20px;">
+                        <p>💬 <strong>Support Email:</strong> support@mediai.com</p>
+                        <p style="margin: 10px 0;">📞 <strong>Phone:</strong> +1 (800) 555-0199</p>
+                        <p>📍 <strong>Address:</strong> 100 Innovation Way, Suite 400, Tech City</p>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3 style="color: #ff007f; font-size: 22px; margin-bottom: 20px; text-shadow: 0 0 10px rgba(255,0,127,0.3);">Submit Feedback</h3>
+                    <form onsubmit="event.preventDefault(); showToast('Feedback Submitted Successfully', false);">
+                        <input type="text" placeholder="Your Name" required style="width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white;">
+                        <input type="email" placeholder="Your Email" required style="width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white;">
+                        <textarea placeholder="Your Feedback or Question" required style="width: 100%; padding: 12px; margin-bottom: 12px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: white; height: 120px; resize: none;"></textarea>
+                        <button type="submit" style="margin-top: 5px; width: 100%; padding: 12px; border-radius: 4px;">Send Feedback</button>
+                    </form>
+                </div>
+        </div>
+        
+        <footer style="text-align: center; padding: 35px 20px; color: rgba(255, 255, 255, 0.5); font-size: 14px; border-top: 1px solid rgba(255, 0, 127, 0.15); margin-top: 50px; font-family: 'Poppins', sans-serif;">
+            <p>&copy; 2026 MediAI Hospital. All rights reserved.</p>
+            <p style="margin-top: 8px; color: rgba(255, 255, 255, 0.4); font-size: 13px;">Developed by <span style="color: #ff007f; font-weight: 600; text-shadow: 0 0 5px rgba(255, 0, 127, 0.3);">Sudarson, B.Tech AI & DS</span></p>
+            <div class="dev-links" style="margin-top: 12px; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                <a href="mailto:sudarsonbalu@gmail.com" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; transition: 0.3s;"><i class="fa-solid fa-envelope"></i> sudarsonbalu@gmail.com</a>
+                <a href="tel:9361138890" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; transition: 0.3s;"><i class="fa-solid fa-phone"></i> +91 9361138890</a>
+                <a href="https://www.linkedin.com/in/sudarson-balu-8110a1308" target="_blank" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; transition: 0.3s;"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+                <a href="https://github.com/Sudarsonbalu" target="_blank" style="color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; transition: 0.3s;"><i class="fa-brands fa-github"></i> GitHub</a>
+            </div>
+        </footer>
+    </div>
+
+</div>
+
+<script>
+function showToast(message, isError = false) {
+    let toast = document.createElement("div");
+    toast.innerText = message;
+    toast.style.position = "fixed";
+    toast.style.bottom = "20px";
+    toast.style.right = "20px";
+    toast.style.padding = "12px 24px";
+    toast.style.background = isError ? "#ff4d4d" : "#2ecc71";
+    toast.style.color = "white";
+    toast.style.borderRadius = "4px";
+    toast.style.boxShadow = "0 4px 6px rgba(0,0,0,0.15)";
+    toast.style.zIndex = "10000";
+    toast.style.fontWeight = "bold";
+    toast.style.fontFamily = "'Poppins', sans-serif";
+    toast.style.transition = "opacity 0.5s ease";
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.opacity = "0";
+        setTimeout(() => {
+            toast.remove();
+        }, 500);
+    }, 3000);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const userStr = localStorage.getItem("user");
+    
+    // Set up hover effect for Admin Portal link
+    const adminPortalLink = document.querySelector(".admin-portal-link");
+    if (adminPortalLink) {
+        adminPortalLink.addEventListener("mouseenter", () => {
+            adminPortalLink.style.background = "#ff4d4d";
+            adminPortalLink.style.color = "black";
+            adminPortalLink.style.boxShadow = "0 0 15px #ff4d4d";
+        });
+        adminPortalLink.addEventListener("mouseleave", () => {
+            adminPortalLink.style.background = "transparent";
+            adminPortalLink.style.color = "#ff4d4d";
+            adminPortalLink.style.boxShadow = "none";
+        });
+    }
+
+    if (userStr) {
+        try {
+            const user = JSON.parse(userStr);
+            const navList = document.querySelector("nav ul");
+            if (navList) {
+                const loginLink = navList.querySelector(".login-link");
+                if (loginLink) {
+                    loginLink.textContent = "Dashboard";
+                    if (user.role && user.role.toLowerCase() === "patient") {
+                        loginLink.href = "dashboard.html";
+                    } else if (user.role && user.role.toLowerCase() === "admin") {
+                        loginLink.href = "admin_analytics.html";
+                    } else {
+                        loginLink.href = "doctor_dashboard.html";
+                    }
+                }
+
+                // If user is Admin, transform the Admin Portal link into Admin Control
+                if (user.role && user.role.toLowerCase() === "admin") {
+                    if (adminPortalLink) {
+                        adminPortalLink.textContent = "Admin Control";
+                        adminPortalLink.href = "admin_analytics.html";
+                    }
+                } else {
+                    // For non-admin logged-in sessions, hide the Admin Portal link to keep nav clean
+                    if (adminPortalLink) {
+                        adminPortalLink.parentElement.remove();
+                    }
+                }
+            }
+
+            // Also update the hero button behavior
+            const heroBtn = document.querySelector(".hero button");
+            if (heroBtn) {
+                heroBtn.textContent = "Go to Dashboard";
+                heroBtn.onclick = () => {
+                    if (user.role && user.role.toLowerCase() === "patient") {
+                        window.location.href = "dashboard.html";
+                    } else if (user.role && user.role.toLowerCase() === "admin") {
+                        window.location.href = "admin_analytics.html";
+                    } else {
+                        window.location.href = "doctor_dashboard.html";
+                    }
+                };
+            }
+        } catch (e) {
+            console.error("Error parsing user session:", e);
+        }
+    }
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediAI - Patient Management</title>
+<link rel="stylesheet" href="patient_management.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Patient Management</h1>
+
+    <div class="form-card">
+
+        <input type="text" id="patientName" placeholder="Patient Name">
+
+        <input type="number" id="patientAge" placeholder="Age">
+
+        <input type="text" id="patientDisease" placeholder="Disease">
+
+        <button onclick="addPatient()">
+            Add Patient
+        </button>
+
+    </div>
+
+    <div class="table-card">
+
+        <h2>Patient Records</h2>
+
+        <table id="patientTable">
+
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Disease</th>
+                <th>Actions</th>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+<!-- Edit Patient Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditModal()">&times;</span>
+        <h3>Edit Patient Record</h3>
+        <input type="hidden" id="editPatientId">
+        
+        <label for="editPatientName">Patient Name</label>
+        <input type="text" id="editPatientName" placeholder="Patient Name">
+        
+        <label for="editPatientAge">Age</label>
+        <input type="number" id="editPatientAge" placeholder="Age">
+        
+        <label for="editPatientDisease">Disease</label>
+        <input type="text" id="editPatientDisease" placeholder="Disease">
+        
+        <button onclick="savePatientEdit()" class="save-btn">Save Changes</button>
+    </div>
+</div>
+
+<script src="patient_management.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

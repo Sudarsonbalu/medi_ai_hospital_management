@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+<script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediAI - Super Admin Control Panel</title>
+    <link rel="stylesheet" href="super_admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="medical_ai_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+
+        <ul class="nav-links">
+            <li class="active" onclick="switchTab('dashboard')"><i class="fa-solid fa-house"></i> Dashboard</li>
+            <li onclick="switchTab('users')"><i class="fa-solid fa-users-gear"></i> User Accounts</li>
+            <li onclick="switchTab('employees')"><i class="fa-solid fa-user-tie"></i> Employees</li>
+            <li onclick="switchTab('doctors')"><i class="fa-solid fa-user-doctor"></i> Doctor Panel</li>
+            <li onclick="switchTab('patients')"><i class="fa-solid fa-hospital-user"></i> Patient Records</li>
+            <li onclick="switchTab('appointments')"><i class="fa-solid fa-calendar-check"></i> Appointments</li>
+            <li onclick="switchTab('emergency')"><i class="fa-solid fa-truck-medical"></i> Emergency Hub</li>
+            <li onclick="switchTab('laboratory')"><i class="fa-solid fa-flask"></i> Laboratory</li>
+            <li onclick="switchTab('pharmacy')"><i class="fa-solid fa-pills"></i> Pharmacy Stock</li>
+            <li onclick="switchTab('ai-assistant')"><i class="fa-solid fa-robot"></i> AI Assistant</li>
+            <li onclick="switchTab('reports')"><i class="fa-solid fa-file-invoice-dollar"></i> Reports Hub</li>
+            <li onclick="switchTab('settings')"><i class="fa-solid fa-sliders"></i> Hospital Settings</li>
+        </ul>
+
+        <div class="sidebar-credit">
+            Developed by <br><span class="credit-name">Sudarson, B.Tech AI & DS</span>
+            <div class="credit-links">
+                <a href="mailto:sudarsonbalu@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+                <a href="tel:9361138890" title="Phone"><i class="fa-solid fa-phone"></i></a>
+                <a href="https://www.linkedin.com/in/sudarson-balu-8110a1308" target="_blank" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/Sudarsonbalu" target="_blank" title="GitHub"><i class="fa-brands fa-github"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main-panel">
+        
+        <!-- Top Navbar Header -->
+        <div class="top-header">
+            <div class="welcome-box">
+                <h1 id="headerTitle">Super Admin Panel</h1>
+                <p id="headerSubtitle">Clinical Operations Command & Infrastructure Control</p>
+            </div>
+            
+            <div class="header-widgets">
+                <div class="widget clock-widget">
+                    <i class="fa-regular fa-clock"></i>
+                    <span id="liveTime">--:--:-- PM</span>
+                </div>
+                
+                <!-- Notification Alert Panel -->
+                <div class="widget notification-trigger" onclick="toggleNotifications()">
+                    <i class="fa-solid fa-bell"></i>
+                    <span class="badge" id="alertCount" style="display:none;">0</span>
+                    <div class="notification-dropdown" id="notificationDropdown">
+                        <h4>System Notifications & Alerts</h4>
+                        <ul id="notificationList">
+                            <li class="empty-list">No active system alerts.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="widget user-profile" onclick="toggleProfileMenu()">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span id="adminName">Super Admin</span>
+                    <div class="profile-dropdown" id="profileDropdown">
+                        <p id="adminEmail">admin@mediai.com</p>
+                        <hr>
+                        <a href="#" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Bar for emergency cases -->
+        <div class="alert-bar" id="emergencyAlertBar" style="display:none;">
+            <div class="alert-content">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <span><strong>CRITICAL EMERGENCY ALERTS DETECTED:</strong> There are active emergency cases requiring doctor assignment.</span>
+            </div>
+            <button onclick="switchTab('emergency')">Assign Now</button>
+        </div>
+
+        <!-- ================= TABS CONTAINERS ================= -->
+
+        <!-- TAB: Dashboard -->
+        <div class="tab-view active" id="tab-dashboard">
+            <!-- Numerical Metrics summary grids -->
+            <div class="metrics-grid">
+                <div class="card metric-card">
+                    <div class="card-glow" style="background: rgba(255, 0, 127, 0.15);"></div>
+                    <i class="fa-solid fa-hospital-user icon"></i>
+                    <div class="info">
+                        <h3 id="statPatients">-</h3>
+                        <p>Total Patients</p>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-glow" style="background: rgba(0, 242, 254, 0.15);"></div>
+                    <i class="fa-solid fa-user-doctor icon"></i>
+                    <div class="info">
+                        <h3 id="statDoctors">-</h3>
+                        <p>Active Doctors</p>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-glow" style="background: rgba(57, 255, 20, 0.15);"></div>
+                    <i class="fa-solid fa-calendar-check icon"></i>
+                    <div class="info">
+                        <h3 id="statAppointments">-</h3>
+                        <p>Total Booked</p>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-glow" style="background: rgba(255, 187, 0, 0.15);"></div>
+                    <i class="fa-solid fa-truck-medical icon"></i>
+                    <div class="info">
+                        <h3 id="statEmergencies">-</h3>
+                        <p>Emergency Cases</p>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-glow" style="background: rgba(224, 86, 253, 0.15);"></div>
+                    <i class="fa-solid fa-flask icon"></i>
+                    <div class="info">
+                        <h3 id="statLabTests">-</h3>
+                        <p>Lab Reports</p>
+                    </div>
+                </div>
+                <div class="card metric-card">
+                    <div class="card-glow" style="background: rgba(162, 155, 254, 0.15);"></div>
+                    <i class="fa-solid fa-prescription-bottle-medical icon"></i>
+                    <div class="info">
+                        <h3 id="statPrescriptions">-</h3>
+                        <p>Prescriptions</p>
+                    </div>
+                </div>
+                <div class="card metric-card full-row">
+                    <div class="card-glow" style="background: rgba(50, 255, 126, 0.15);"></div>
+                    <i class="fa-solid fa-file-invoice-dollar icon"></i>
+                    <div class="info">
+                        <h3 id="statRevenue">-</h3>
+                        <p>Est. Combined Revenue & Valuations (Appointments + Pharmacy Inventory)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Analytics Charts & Operational Highlights -->
+            <div class="dashboard-details">
+                <div class="card chart-card">
+                    <h3>Operational Analytics Breakdown</h3>
+                    <div class="css-chart">
+                        <div class="chart-bar-container">
+                            <span class="label">Booked</span>
+                            <div class="progress-track"><div class="progress-fill" id="chartBooked" style="width:0%; background:#00f2fe;"></div></div>
+                            <span class="value" id="valBooked">0</span>
+                        </div>
+                        <div class="chart-bar-container">
+                            <span class="label">Completed</span>
+                            <div class="progress-track"><div class="progress-fill" id="chartCompleted" style="width:0%; background:#39ff20;"></div></div>
+                            <span class="value" id="valCompleted">0</span>
+                        </div>
+                        <div class="chart-bar-container">
+                            <span class="label">Cancelled</span>
+                            <div class="progress-track"><div class="progress-fill" id="chartCancelled" style="width:0%; background:#ff007f;"></div></div>
+                            <span class="value" id="valCancelled">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card alerts-card">
+                    <h3>Critical Resource Alerts</h3>
+                    <ul class="resource-alerts-list" id="resourceAlertList">
+                        <li class="empty">Scanning inventory and emergencies...</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Live Registration & System Events Card -->
+            <div class="card settings-card" style="margin-top: 25px;">
+                <h3>Live System & Registration Events</h3>
+                <p style="margin-bottom: 15px; color: rgba(255, 255, 255, 0.6); font-size: 13px;">Real-time audit trail of administrative actions, user logins, and registrations.</p>
+                <div class="activity-log-viewer" id="dashboardActivityLogViewer" style="max-height: 250px; overflow-y: auto;">
+                    <div style="color: rgba(255, 255, 255, 0.4); text-align: center; padding: 15px;">Loading live system logs...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB: Users Management -->
+        <div class="tab-view" id="tab-users">
+            <div class="control-bar">
+                <input type="text" id="userSearch" onkeyup="loadUsers()" placeholder="Search users by name or email...">
+                <select id="userRoleFilter" onchange="loadUsers()">
+                    <option value="">All Account Roles</option>
+                    <option value="Patient">Patients</option>
+                    <option value="Doctor">Doctors</option>
+                    <option value="Admin">Admins</option>
+                </select>
+                <button class="btn-primary" onclick="openAddUserModal()"><i class="fa-solid fa-user-plus"></i> Add Registered User</button>
+            </div>
+
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>User ID</th>
+                            <th>Full Name</th>
+                            <th>Email Address</th>
+                            <th>Account Role</th>
+                            <th>Access Status</th>
+                            <th>Registration Date</th>
+                            <th>Last Login</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: Doctors Management -->
+        <div class="tab-view" id="tab-doctors">
+            <div class="control-bar">
+                <button class="btn-primary" onclick="openAddDoctorModal()"><i class="fa-solid fa-user-doctor"></i> Add Doctor Profile</button>
+            </div>
+
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Doctor ID</th>
+                            <th>Name</th>
+                            <th>Specialization</th>
+                            <th>Department</th>
+                            <th>Availability Status</th>
+                            <th>Active Schedule</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doctorTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: Patients Management -->
+        <div class="tab-view" id="tab-patients">
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Patient ID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Gender</th>
+                            <th>Primary Disease/Diagnose</th>
+                            <th>Medical History Overview</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="patientTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: Appointments Management -->
+        <div class="tab-view" id="tab-appointments">
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Appt ID</th>
+                            <th>Patient Name</th>
+                            <th>Gender</th>
+                            <th>Doctor Assigned</th>
+                            <th>Scheduled Date</th>
+                            <th>Booking Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="appointmentTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: Emergency Hub -->
+        <div class="tab-view" id="tab-emergency">
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Emergency ID</th>
+                            <th>Patient Name</th>
+                            <th>Severity Level</th>
+                            <th>Contact Phone</th>
+                            <th>Reported Symptoms</th>
+                            <th>Assigned Doctor</th>
+                            <th>Operations Status</th>
+                            <th>Reporting Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="emergencyTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: Laboratory -->
+        <div class="tab-view" id="tab-laboratory">
+            <div class="control-bar">
+                <button class="btn-primary" onclick="openAddTestModal()"><i class="fa-solid fa-flask"></i> Schedule Lab Test</button>
+            </div>
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test ID</th>
+                            <th>Patient Name</th>
+                            <th>Test Category</th>
+                            <th>Scheduled Date</th>
+                            <th>Status</th>
+                            <th>Result File Attachment</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="labTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: Pharmacy Stock -->
+        <div class="tab-view" id="tab-pharmacy">
+            <div class="control-bar">
+                <button class="btn-primary" onclick="openAddMedicineModal()"><i class="fa-solid fa-plus"></i> Add Medicine Stock</button>
+            </div>
+            <div class="card table-card">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Medicine ID</th>
+                            <th>Medicine Name</th>
+                            <th>Stock Quantity</th>
+                            <th>Price per Unit</th>
+                            <th>Total Inventory Value</th>
+                            <th>Status Alert</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pharmacyTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: AI Assistant -->
+        <div class="tab-view" id="tab-ai-assistant">
+            <div class="ai-controls-grid">
+                <div class="card ai-card">
+                    <h3>AI Assistant Control Toggle</h3>
+                    <div class="toggle-container">
+                        <span class="label">Gemini Disease & Chat Models Status</span>
+                        <label class="switch">
+                            <input type="checkbox" id="aiEnabledToggle" onchange="toggleAiAssistant()">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div class="apikey-container">
+                        <label for="geminiApiKey">Gemini Pro API Security Key</label>
+                        <input type="password" id="geminiApiKey" placeholder="AI API Key Override (GEMINI_API_KEY)">
+                        <button onclick="saveApiKey()">Save API Key</button>
+                    </div>
+                </div>
+
+                <div class="card ai-card">
+                    <h3>Model Diagnostics & Summary</h3>
+                    <div class="diagnostic-row">
+                        <span>Total AI Conversational Requests Logs:</span>
+                        <strong id="aiTotalConversations">0</strong>
+                    </div>
+                    <div class="diagnostic-row">
+                        <span>Active System Framework:</span>
+                        <strong>FastAPI & Gemini-1.5</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card table-card" style="margin-top:25px;">
+                <h3>Conversational Assistant Chat Logs</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Log ID</th>
+                            <th>User Query Message</th>
+                            <th>Bot Diagnostic Response</th>
+                            <th>Timestamp</th>
+                        </tr>
+                    </thead>
+                    <tbody id="aiLogsTableBody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- TAB: Reports Hub -->
+        <div class="tab-view" id="tab-reports">
+            <div class="card reports-card">
+                <h2>Clinical Records Database Exporter</h2>
+                <p>Download structured spreadsheets (CSV) containing up-to-date hospital entries for external auditing and data analysis in Microsoft Excel.</p>
+                <div class="export-buttons-grid">
+                    <button class="btn-export" onclick="exportData('users')"><i class="fa-solid fa-users"></i> Export Users List</button>
+                    <button class="btn-export" onclick="exportData('doctors')"><i class="fa-solid fa-user-doctor"></i> Export Doctors List</button>
+                    <button class="btn-export" onclick="exportData('patients')"><i class="fa-solid fa-hospital-user"></i> Export Patients List</button>
+                    <button class="btn-export" onclick="exportData('appointments')"><i class="fa-solid fa-calendar-check"></i> Export Appointments</button>
+                    <button class="btn-export" onclick="exportData('pharmacy')"><i class="fa-solid fa-pills"></i> Export Pharmacy Stock</button>
+                    <button class="btn-export" onclick="exportData('emergencies')"><i class="fa-solid fa-truck-medical"></i> Export Emergencies</button>
+                </div>
+            </div>
+
+            <div class="card reports-card" style="margin-top:25px;">
+                <h2>Administrative Operations Report PDF</h2>
+                <p>Generate a comprehensive, printable HTML/PDF operational document with financial valuations, clinical totals, and executive sign-off blocks.</p>
+                <button class="btn-primary" onclick="generatePDFReport()"><i class="fa-solid fa-file-pdf"></i> Generate Printable PDF Report</button>
+            </div>
+        </div>
+
+        <!-- TAB: Hospital Settings -->
+        <div class="tab-view" id="tab-settings">
+            <div class="settings-grid">
+                <div class="card settings-card">
+                    <h3>Hospital Information Settings</h3>
+                    <div class="form-group">
+                        <label for="hospitalName">Hospital / Organization Name</label>
+                        <input type="text" id="hospitalName" placeholder="MediAI General Hospital">
+                    </div>
+                    <div class="form-group">
+                        <label for="systemEmail">Administrative Email Address</label>
+                        <input type="email" id="systemEmail" placeholder="admin@mediai.org">
+                    </div>
+                    <div class="form-group">
+                        <label for="backupFreq">System Automated Backup Frequency</label>
+                        <select id="backupFreq">
+                            <option value="Daily">Daily</option>
+                            <option value="Weekly">Weekly</option>
+                            <option value="Monthly">Monthly</option>
+                        </select>
+                    </div>
+                    <button class="btn-primary" onclick="saveSettings()">Save Settings</button>
+                </div>
+
+                <div class="card settings-card">
+                    <h3>Database Infrastructure Controls</h3>
+                    <p>Trigger a full database state dump as a JSON payload for safekeeping. You can upload it back at any time to restore the entire system state.</p>
+                    <div class="db-buttons">
+                        <button class="btn-export" onclick="backupDatabase()"><i class="fa-solid fa-download"></i> Backup Database (JSON)</button>
+                        <hr style="border: 1px solid rgba(255,255,255,0.05); margin: 15px 0;">
+                        <label for="restoreFileSelector" class="btn-restore-label"><i class="fa-solid fa-upload"></i> Choose Restore Backup File</label>
+                        <input type="file" id="restoreFileSelector" onchange="restoreDatabase(event)" style="display:none;">
+                    </div>
+                </div>
+
+                <div class="card settings-card full-row">
+                    <h3>Hospital Infrastructure Audit Trail Logs</h3>
+                    <p>Administrative actions log (CRUD operations, login timestamps, API key modifications) for regulatory compliance.</p>
+                    <div class="activity-log-viewer" id="activityLogViewer">
+                        <!-- Loaded dynamically -->
+                    </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- TAB: Employees -->
+        <div class="tab-view" id="tab-employees" style="padding: 0;">
+            <iframe id="employeesFrame" src="employee_dashboard.html" style="width: 100%; height: calc(100vh - 120px); border: none; background: transparent; overflow-y: auto;"></iframe>
+        </div>
+
+    </div>
+
+    <!-- ================= MODALS INTERFACES ================= -->
+
+    <!-- MODAL: Add User -->
+    <div id="addUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('addUserModal')">&times;</span>
+            <h3>Add New Registered Account</h3>
+            <div class="form-group">
+                <label for="addUserName">Full Name</label>
+                <input type="text" id="addUserName" placeholder="Full Name">
+            </div>
+            <div class="form-group">
+                <label for="addUserEmail">Email Address</label>
+                <input type="email" id="addUserEmail" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <label for="addUserRole">Account Access Role</label>
+                <select id="addUserRole">
+                    <option value="Patient">Patient</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="addUserPassword">Security Password</label>
+                <input type="password" id="addUserPassword" placeholder="Set Password">
+            </div>
+            <button onclick="submitAddUser()">Create User</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Edit User -->
+    <div id="editUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('editUserModal')">&times;</span>
+            <h3>Modify User Details</h3>
+            <input type="hidden" id="editUserId">
+            <div class="form-group">
+                <label for="editUserName">Full Name</label>
+                <input type="text" id="editUserName" placeholder="Full Name">
+            </div>
+            <div class="form-group">
+                <label for="editUserEmail">Email Address</label>
+                <input type="email" id="editUserEmail" placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <label for="editUserRole">Account Access Role</label>
+                <select id="editUserRole">
+                    <option value="Patient">Patient</option>
+                    <option value="Doctor">Doctor</option>
+                    <option value="Admin">Admin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="editUserStatus">Access Status</label>
+                <select id="editUserStatus">
+                    <option value="Active">Active (Granted)</option>
+                    <option value="Inactive">Inactive (Suspended)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="editUserPassword">Reset Password (leave blank to keep current)</label>
+                <input type="password" id="editUserPassword" placeholder="New Password">
+            </div>
+            <button onclick="submitEditUser()">Save User Changes</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Add Doctor -->
+    <div id="addDoctorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('addDoctorModal')">&times;</span>
+            <h3>Add Doctor Profile</h3>
+            <div class="form-group">
+                <label for="addDocName">Doctor Name</label>
+                <input type="text" id="addDocName" placeholder="Dr. John Doe">
+            </div>
+            <div class="form-group">
+                <label for="addDocSpec">Specialization</label>
+                <input type="text" id="addDocSpec" placeholder="Cardiology">
+            </div>
+            <div class="form-group">
+                <label for="addDocDept">Department</label>
+                <input type="text" id="addDocDept" placeholder="Outpatient Cardiology">
+            </div>
+            <div class="form-group">
+                <label for="addDocAvail">Availability Status</label>
+                <select id="addDocAvail">
+                    <option value="Available">Available</option>
+                    <option value="On Leave">On Leave</option>
+                    <option value="Busy">Busy</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="addDocSched">Schedules Hours</label>
+                <input type="text" id="addDocSched" value="Mon-Fri 9:00 AM - 5:00 PM">
+            </div>
+            <button onclick="submitAddDoctor()">Add Doctor</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Edit Doctor -->
+    <div id="editDoctorModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('editDoctorModal')">&times;</span>
+            <h3>Modify Doctor Profile</h3>
+            <input type="hidden" id="editDocId">
+            <div class="form-group">
+                <label for="editDocName">Doctor Name</label>
+                <input type="text" id="editDocName">
+            </div>
+            <div class="form-group">
+                <label for="editDocSpec">Specialization</label>
+                <input type="text" id="editDocSpec">
+            </div>
+            <div class="form-group">
+                <label for="editDocDept">Department</label>
+                <input type="text" id="editDocDept">
+            </div>
+            <div class="form-group">
+                <label for="editDocAvail">Availability Status</label>
+                <select id="editDocAvail">
+                    <option value="Available">Available</option>
+                    <option value="On Leave">On Leave</option>
+                    <option value="Busy">Busy</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="editDocSched">Schedules Hours</label>
+                <input type="text" id="editDocSched">
+            </div>
+            <button onclick="submitEditDoctor()">Save Doctor Details</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Edit Patient -->
+    <div id="editPatientModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('editPatientModal')">&times;</span>
+            <h3>Edit Patient Record</h3>
+            <input type="hidden" id="editPatientId">
+            <div class="form-group">
+                <label for="editPatName">Patient Name</label>
+                <input type="text" id="editPatName">
+            </div>
+            <div class="form-group">
+                <label for="editPatAge">Age</label>
+                <input type="number" id="editPatAge">
+            </div>
+            <div class="form-group">
+                <label for="editPatGender">Gender</label>
+                <select id="editPatGender">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="editPatDisease">Primary Diagnose</label>
+                <input type="text" id="editPatDisease">
+            </div>
+            <div class="form-group">
+                <label for="editPatHistory">Medical History Records</label>
+                <textarea id="editPatHistory" rows="4" placeholder="Previous treatments, allergies..."></textarea>
+            </div>
+            <button onclick="submitEditPatient()">Save Patient Record</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Reschedule Appointment -->
+    <div id="rescheduleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('rescheduleModal')">&times;</span>
+            <h3>Reschedule Appointment</h3>
+            <input type="hidden" id="rescheduleApptId">
+            <input type="hidden" id="reschedulePatName">
+            <input type="hidden" id="rescheduleDocId">
+            <div class="form-group">
+                <label for="rescheduleNewDate">Select New Schedule Date</label>
+                <input type="date" id="rescheduleNewDate" required>
+            </div>
+            <button onclick="submitReschedule()">Reschedule Booking</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Add Lab Test -->
+    <div id="addTestModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('addTestModal')">&times;</span>
+            <h3>Schedule Laboratory Test</h3>
+            <div class="form-group">
+                <label for="addTestPatName">Patient Name</label>
+                <input type="text" id="addTestPatName" placeholder="Patient Name">
+            </div>
+            <div class="form-group">
+                <label for="addTestCategory">Test Category</label>
+                <select id="addTestCategory">
+                    <option value="Blood Test">Blood Test</option>
+                    <option value="Urine Test">Urine Test</option>
+                    <option value="X-Ray">X-Ray</option>
+                    <option value="MRI Scan">MRI Scan</option>
+                    <option value="CT Scan">CT Scan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="addTestDate">Schedule Date</label>
+                <input type="date" id="addTestDate">
+            </div>
+            <button onclick="submitAddTest()">Schedule Test</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Upload Lab Report File -->
+    <div id="uploadReportModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('uploadReportModal')">&times;</span>
+            <h3>Upload Lab Report File Attachment</h3>
+            <input type="hidden" id="uploadReportTestId">
+            <div class="form-group">
+                <label for="labReportFile">Select Report File (PDF/Image)</label>
+                <input type="file" id="labReportFile" accept=".pdf,image/*">
+            </div>
+            <button onclick="submitReportUpload()">Upload Report & Mark Completed</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Add Medicine -->
+    <div id="addMedicineModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('addMedicineModal')">&times;</span>
+            <h3>Add Medicine Inventory Item</h3>
+            <div class="form-group">
+                <label for="addMedName">Medicine Name</label>
+                <input type="text" id="addMedName" placeholder="Aspirin">
+            </div>
+            <div class="form-group">
+                <label for="addMedQty">Stock Quantity</label>
+                <input type="number" id="addMedQty" placeholder="100">
+            </div>
+            <div class="form-group">
+                <label for="addMedPrice">Price per Unit (INR)</label>
+                <input type="number" id="addMedPrice" placeholder="5.50" step="0.01">
+            </div>
+            <button onclick="submitAddMedicine()">Add Medicine Item</button>
+        </div>
+    </div>
+
+    <!-- MODAL: Edit Medicine -->
+    <div id="editMedicineModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('editMedicineModal')">&times;</span>
+            <h3>Modify Medicine Details</h3>
+            <input type="hidden" id="editMedId">
+            <div class="form-group">
+                <label for="editMedName">Medicine Name</label>
+                <input type="text" id="editMedName">
+            </div>
+            <div class="form-group">
+                <label for="editMedQty">Stock Quantity</label>
+                <input type="number" id="editMedQty">
+            </div>
+            <div class="form-group">
+                <label for="editMedPrice">Price per Unit (INR)</label>
+                <input type="number" id="editMedPrice" step="0.01">
+            </div>
+            <button onclick="submitEditMedicine()">Save Stock Changes</button>
+        </div>
+    </div>
+
+    <script src="super_admin.js"></script>
+
+</body>
+</html>

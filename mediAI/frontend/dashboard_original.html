@@ -1,0 +1,106 @@
+Created At: 2026-06-19T11:07:10Z
+Completed At: 2026-06-19T11:07:10Z
+File Path: `file:///d:/PROJEC%20T/mediAI/frontend/dashboard.html`
+Total Lines: 98
+Total Bytes: 3490
+Showing lines 1 to 98
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: <!DOCTYPE html>
+2: <html lang="en">
+3: <head>
+4: <script src="config.js"></script>
+5: <script src="api.js"></script>
+6: <meta charset="UTF-8">
+7: <meta name="viewport" content="width=device-width, initial-scale=1.0">
+8: <title>MediAI Dashboard</title>
+9: <link rel="stylesheet" href="dashboard.css">
+10: <link rel="stylesheet"
+11: href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+12: </head>
+13: <body>
+14: 
+15: <div class="sidebar">
+16:     <div class="brand">
+17:         <img src="pink_neon_logo.png" alt="MediAI Logo">
+18:         <h2>MediAI</h2>
+19:     </div>
+20: 
+21:     <ul>
+22:         <li><i class="fa-solid fa-house"></i> Dashboard</li>
+23:         <li><i class="fa-solid fa-truck-medical" style="color: #f87171;"></i> Emergency Booking</li>
+24:         <li><i class="fa-solid fa-heart-pulse"></i> Disease Prediction</li>
+25:         <li><i class="fa-solid fa-file-medical"></i> Medical Reports</li>
+26:         <li><i class="fa-solid fa-user-doctor"></i> Doctors</li>
+27:         <li><i class="fa-solid fa-calendar-check"></i> Appointments</li>
+28:         <li><i class="fa-solid fa-robot"></i> AI Assistant</li>
+29:         <li><i class="fa-solid fa-right-from-bracket"></i> Logout</li>
+30:     </ul>
+31: </div>
+32: 
+33: <div class="main">
+34: 
+35:     <div class="topbar">
+36:         <h1>Patient Dashboard</h1>
+37:     </div>
+38: 
+39:     <div class="cards">
+40: 
+41:         <div class="card" onclick="window.location.href='appointment.html'">
+42:             <i class="fa-solid fa-calendar-check" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+43:             <h2 id="statAppointments">-</h2>
+44:             <p>Book Appointment</p>
+45:         </div>
+46: 
+47:         <div class="card" onclick="window.location.href='medical_reports.html'">
+48:             <i class="fa-solid fa-file-medical" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+49:             <h2 id="statReports">-</h2>
+50:             <p>Medical Reports</p>
+51:         </div>
+52: 
+53:         <div class="card" onclick="window.location.href='doctor_management.html'">
+54:             <i class="fa-solid fa-user-doctor" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+55:             <h2 id="statDoctors">-</h2>
+56:             <p>Consult Doctors</p>
+57:         </div>
+58: 
+59:         <div class="card" onclick="window.location.href='disease_prediction.html'">
+60:             <i class="fa-solid fa-heart-pulse" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+61:             <h2>AI</h2>
+62:             <p>Disease Prediction</p>
+63:         </div>
+64: 
+65:         <div class="card" onclick="window.location.href='chatbot.html'">
+66:             <i class="fa-solid fa-robot" style="font-size: 28px; color: #ff007f; margin-bottom: 5px;"></i>
+67:             <h2>Chat</h2>
+68:             <p>AI Assistant</p>
+69:         </div>
+70: 
+71:         <div class="card" style="cursor: default;">
+72:             <i class="fa-solid fa-gauge-high" style="font-size: 28px; color: #2ecc71; margin-bottom: 5px;"></i>
+73:             <h2 style="color: #2ecc71;">95%</h2>
+74:             <p>Health Score</p>
+75:         </div>
+76: 
+77:     </div>
+78: 
+79:     <div class="welcome">
+80:         <h2>Welcome to MediAI</h2>
+81: 
+82:         <p>
+83:             Manage appointments, analyze reports,
+84:             predict diseases and interact with the AI assistant.
+85:         </p>
+86:     </div>
+87: 
+88: </div>
+89: 
+90: <!-- Floating AI Assistant Shortcut -->
+91: <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+92:     <i class="fa-solid fa-robot"></i>
+93: </a>
+94: 
+95: <script src="navigation.js"></script>
+96: <script src="dashboard.js"></script>
+97: </body>
+98: </html>
+The above content shows the entire, complete file contents of the requested file.

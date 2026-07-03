@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="config.js"></script>
+<script src="api.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediAI Pharmacy Management</title>
+<link rel="stylesheet" href="pharmacy_management.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Pharmacy Management</h1>
+
+    <div class="form-box">
+
+        <input type="text" id="medicineName" placeholder="Medicine Name">
+
+        <input type="number" id="medicineQty" placeholder="Quantity">
+
+        <input type="number" id="medicinePrice" placeholder="Price">
+
+        <button onclick="addMedicine()">
+            Add Medicine
+        </button>
+
+    </div>
+
+    <table id="medicineTable">
+
+        <tr>
+            <th>Medicine</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+
+    </table>
+
+</div>
+
+<!-- Edit Medicine Modal -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeEditModal()">&times;</span>
+        <h3>Edit Medicine Stock</h3>
+        <input type="hidden" id="editMedicineId">
+        
+        <label for="editMedicineName">Medicine Name</label>
+        <input type="text" id="editMedicineName" placeholder="Medicine Name">
+        
+        <label for="editMedicineQty">Quantity</label>
+        <input type="number" id="editMedicineQty" placeholder="Quantity">
+        
+        <label for="editMedicinePrice">Price</label>
+        <input type="number" id="editMedicinePrice" placeholder="Price" step="0.01">
+        
+        <button onclick="saveMedicineEdit()" class="save-btn">Save Changes</button>
+    </div>
+</div>
+
+<script src="pharmacy_management.js"></script>
+<script src="navigation.js"></script>
+
+</body>
+</html>

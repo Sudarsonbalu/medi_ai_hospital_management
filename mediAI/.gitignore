@@ -1,0 +1,9 @@
+backend/.env
+.env
+__pycache__/
+*.pyc
+*.pyo
+.Python
+tunnel.log
+tunnel_url.txt
+.netlify/

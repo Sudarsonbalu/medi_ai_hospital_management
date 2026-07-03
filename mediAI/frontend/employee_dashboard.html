@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>Employee Management Dashboard</h1>
+                <p class="main-subtitle">Hospital Workforce Operations, Shift Allocation & Payroll Tracking</p>
+            </div>
+            <div class="flex-gap">
+                <button onclick="window.location.href='employee_add.html'"><i class="fa-solid fa-user-plus"></i> Add Employee</button>
+            </div>
+        </div>
+
+        <!-- Dashboard widgets -->
+        <div class="cards">
+            <div class="card" onclick="window.location.href='employee_list.html'">
+                <div class="card-glow" style="background: rgba(255, 0, 127, 0.15);"></div>
+                <i class="fa-solid fa-users icon" style="font-size: 28px; color: #ff007f;"></i>
+                <h2 id="widgetTotal">-</h2>
+                <p>Total Employees</p>
+            </div>
+            <div class="card" onclick="window.location.href='employee_list.html?status=Active'">
+                <div class="card-glow" style="background: rgba(46, 204, 113, 0.15);"></div>
+                <i class="fa-solid fa-user-check icon" style="font-size: 28px; color: #2ecc71;"></i>
+                <h2 id="widgetActive">-</h2>
+                <p>Active Staff</p>
+            </div>
+            <div class="card" onclick="window.location.href='leave_management.html'">
+                <div class="card-glow" style="background: rgba(241, 196, 15, 0.15);"></div>
+                <i class="fa-solid fa-plane-departure icon" style="font-size: 28px; color: #f1c40f;"></i>
+                <h2 id="widgetLeave">-</h2>
+                <p>Employees on Leave</p>
+            </div>
+            <div class="card" onclick="window.location.href='attendance_management.html'">
+                <div class="card-glow" style="background: rgba(0, 242, 254, 0.15);"></div>
+                <i class="fa-solid fa-clock icon" style="font-size: 28px; color: #00f2fe;"></i>
+                <h2 id="widgetAttendance">-</h2>
+                <p>Attendance Today</p>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 25px; margin-bottom: 30px;">
+            <!-- Department Distribution chart -->
+            <div class="section-box" style="margin-bottom: 0;">
+                <h3>Department Distribution</h3>
+                <div id="deptList" style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                    <p style="color: rgba(255, 255, 255, 0.5); text-align: center;">Scanning departments...</p>
+                </div>
+            </div>
+
+            <!-- Recent activities feed -->
+            <div class="section-box" style="margin-bottom: 0;">
+                <h3>Recent Activities</h3>
+                <div id="activitiesList" style="display: flex; flex-direction: column; gap: 12px; margin-top: 15px; max-height: 250px; overflow-y: auto;">
+                    <p style="color: rgba(255, 255, 255, 0.5); text-align: center;">Retrieving operations feed...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick actions layout -->
+        <div class="section-box">
+            <h3>Quick Action Hub</h3>
+            <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                <a href="employee_list.html" class="btn btn-secondary"><i class="fa-solid fa-list"></i> Workforce Directory</a>
+                <a href="attendance_management.html" class="btn btn-secondary"><i class="fa-solid fa-calendar-check"></i> Attendance Panel</a>
+                <a href="leave_management.html" class="btn btn-secondary"><i class="fa-solid fa-plane-departure"></i> Leave Requests</a>
+                <a href="shift_management.html" class="btn btn-secondary"><i class="fa-solid fa-business-time"></i> Shift Scheduler</a>
+                <a href="payroll_management.html" class="btn btn-secondary"><i class="fa-solid fa-file-invoice-dollar"></i> Payroll Sheet</a>
+                <a href="performance_management.html" class="btn btn-secondary"><i class="fa-solid fa-star"></i> Appraisals & Tasks</a>
+                <a href="notifications.html" class="btn btn-secondary"><i class="fa-solid fa-bell"></i> Audit logs</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="employee_dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="config.js"></script>
+    <script src="api.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workforce Notifications - MediAI</title>
+    <link rel="stylesheet" href="employee_management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="pink_neon_logo.png" alt="MediAI Logo">
+            <h2>MediAI Admin</h2>
+        </div>
+        <ul>
+            <!-- Dynamic entries from navigation.js -->
+        </ul>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div class="main">
+        <div class="flex-header">
+            <div>
+                <h1>System Activity Notifications</h1>
+                <p class="main-subtitle">Historical audit trail of workforce clock-ins, clock-outs, leave applications and registrations</p>
+            </div>
+            <div class="flex-gap">
+                <button onclick="loadNotifications()" class="btn btn-secondary"><i class="fa-solid fa-rotate"></i> Refresh Feed</button>
+                <a href="employee_dashboard.html" class="btn btn-secondary"><i class="fa-solid fa-house"></i> Dashboard</a>
+            </div>
+        </div>
+
+        <!-- Notifications feed container -->
+        <div class="section-box">
+            <h3>Audit Trail Logs</h3>
+            <div id="notificationsLogContainer" style="display: flex; flex-direction: column; gap: 15px; margin-top: 15px;">
+                <p style="color:rgba(255,255,255,0.4); text-align:center; padding:20px;">Scanning activity logs...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating AI Assistant Shortcut -->
+    <a href="chatbot.html" class="ai-fab" title="Consult AI Assistant">
+        <i class="fa-solid fa-robot"></i>
+    </a>
+
+    <script src="navigation.js"></script>
+    <script src="notifications.js"></script>
+</body>
+</html>

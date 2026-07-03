@@ -1,0 +1,47 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install Dependencies",
+            "type": "shell",
+            "command": "${workspaceFolder}/venv/Scripts/pip",
+            "args": [
+                "install",
+                "-r",
+                "${workspaceFolder}/backend/requirements.txt"
+            ],
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Run Migrations",
+            "type": "shell",
+            "command": "${workspaceFolder}/venv/Scripts/python",
+            "args": [
+                "${workspaceFolder}/backend/migrate.py"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Start Backend Server",
+            "type": "shell",
+            "command": "${workspaceFolder}/venv/Scripts/uvicorn",
+            "args": [
+                "app:app",
+                "--reload",
+                "--host",
+                "127.0.0.1",
+                "--port",
+                "8001"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/backend"
+            },
+            "isBackground": true,
+            "problemMatcher": []
+        }
+    ]
+}
