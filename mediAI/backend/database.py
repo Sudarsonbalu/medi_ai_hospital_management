@@ -195,14 +195,18 @@ try:
             # Raise other connection errors (e.g. access denied, connection timeout)
             raise err
     
-    # Set up a connection pool
-    connection_pool = mysql.connector.pooling.MySQLConnectionPool(
-        pool_name="mediai_pool",
-        pool_size=5,
-        pool_reset_session=True,
-        **db_config
-    )
-    print("Database Connection Pool Created Successfully (MySQL)")
+    # Set up a connection pool (disable in serverless to prevent database connection exhaustion)
+    if os.getenv("VERCEL") == "1":
+        print("Vercel/serverless environment detected. Disabling connection pooling to prevent database connection exhaustion.")
+        connection_pool = None
+    else:
+        connection_pool = mysql.connector.pooling.MySQLConnectionPool(
+            pool_name="mediai_pool",
+            pool_size=5,
+            pool_reset_session=True,
+            **db_config
+        )
+        print("Database Connection Pool Created Successfully (MySQL)")
 except Exception as err:
     print(f"MySQL connection failed: {err}")
     # Force raise the error in Vercel to prevent silent SQLite fallback
