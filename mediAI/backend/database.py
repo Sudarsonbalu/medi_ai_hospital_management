@@ -23,6 +23,32 @@ db_config = {
     "database": clean_env(os.getenv("DB_NAME", "mediai"))
 }
 
+# SSL/TLS Configuration (required for Aiven and other managed MySQL databases)
+is_aiven = "aivencloud.com" in db_config["host"].lower() or "aiven" in db_config["host"].lower()
+db_ssl_ca_val = os.getenv("DB_SSL_CA")
+
+if db_ssl_ca_val:
+    import tempfile
+    try:
+        temp_ca = tempfile.NamedTemporaryFile(delete=False, suffix=".pem", mode="w")
+        temp_ca.write(db_ssl_ca_val.strip())
+        temp_ca.close()
+        db_config["ssl_ca"] = temp_ca.name
+        db_config["ssl_verify_cert"] = True
+        print("Configured SSL connection using DB_SSL_CA.")
+    except Exception as ssl_err:
+        print(f"Warning: Failed to write DB_SSL_CA to temp file: {ssl_err}")
+        db_config["ssl_verify_cert"] = False
+elif is_aiven:
+    # Connect with SSL but skip hostname/CA certificate verification by default for Aiven
+    db_config["ssl_verify_cert"] = False
+    print("Detected Aiven host. Enabled SSL without certificate verification.")
+else:
+    db_ssl_mode = os.getenv("DB_SSL_MODE", "").lower()
+    if db_ssl_mode in ("required", "true", "1"):
+        db_config["ssl_verify_cert"] = False
+
+
 # SQLite compatibility classes
 class SQLiteCursorWrapper:
     def __init__(self, sqlite_cursor, dictionary=False):
