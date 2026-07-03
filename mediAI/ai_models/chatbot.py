@@ -131,7 +131,7 @@ def get_chatbot_response(message: str) -> str:
             return f"Error contacting OpenRouter API: {str(e)}\n\n(Fallback to offline system): {get_rule_based_response(message)}"
             
     else:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={api_key}"
         payload = {
             "contents": [
                 {
