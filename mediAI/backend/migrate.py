@@ -334,12 +334,13 @@ def run_migrations():
 
     # Seed default settings if empty
     cursor.execute("SELECT COUNT(*) FROM settings")
+    default_key = os.getenv("GEMINI_API_KEY", "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")
     if cursor.fetchone()[0] == 0:
         default_settings = [
             ("hospital_name", "MediAI General Hospital"),
             ("system_email", "admin@mediai.org"),
             ("ai_enabled", "true"),
-            ("gemini_api_key", os.getenv("GEMINI_API_KEY", "")),
+            ("gemini_api_key", default_key),
             ("backup_frequency", "Daily")
         ]
         cursor.executemany(
@@ -347,6 +348,22 @@ def run_migrations():
             default_settings
         )
         print("Seeded default settings.")
+    else:
+        # If settings table exists but gemini_api_key is empty/missing, update/insert it
+        cursor.execute("SELECT setting_value FROM settings WHERE setting_key = 'gemini_api_key'")
+        row = cursor.fetchone()
+        if not row:
+            cursor.execute(
+                "INSERT INTO settings (setting_key, setting_value) VALUES ('gemini_api_key', %s)",
+                (default_key,)
+            )
+            print("Inserted default gemini_api_key.")
+        elif not row[0]:
+            cursor.execute(
+                "UPDATE settings SET setting_value = %s WHERE setting_key = 'gemini_api_key'",
+                (default_key,)
+            )
+            print("Updated empty gemini_api_key with default key.")
 
     # Make sure we have an Admin account by default
     cursor.execute("SELECT COUNT(*) FROM users WHERE role = 'Admin'")
