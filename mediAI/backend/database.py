@@ -153,66 +153,110 @@ class SQLiteConnectionWrapper:
     def close(self):
         self.conn.close()
 
+import threading
+import time
+
 # Try to connect to MySQL
 use_sqlite = False
 connection_pool = None
+_db_initialized = False
+_db_init_lock = threading.Lock()
 
-try:
-    # Try connecting to the specified database first
-    try:
-        test_conn = mysql.connector.connect(
-            host=db_config["host"],
-            port=db_config.get("port", 3306),
-            user=db_config["user"],
-            password=db_config["password"],
-            database=db_config["database"],
-            connect_timeout=10
-        )
-        test_conn.close()
-        print(f"Database '{db_config['database']}' exists. Skipping creation check.")
-    except mysql.connector.Error as err:
-        if err.errno == 1049:  # 1049 is MySQL error code for Unknown Database
-            print(f"Database '{db_config['database']}' does not exist. Attempting to create it...")
+def initialize_database():
+    global connection_pool, _db_initialized
+    
+    # Try connecting to the specified database first, with retries
+    max_retries = 3
+    last_err = None
+    
+    # Connect config without database to check/create database if needed
+    config_no_db = db_config.copy()
+    db_name = config_no_db.pop("database", "mediai")
+    
+    print("Initializing database connection...")
+    
+    # 1. Try to connect directly to the database first
+    for attempt in range(max_retries):
+        try:
+            test_conn = mysql.connector.connect(
+                database=db_name,
+                connect_timeout=10,
+                **config_no_db
+            )
+            test_conn.close()
+            print(f"Database '{db_name}' exists. Skipping creation check.")
+            last_err = None
+            break
+        except mysql.connector.Error as err:
+            last_err = err
+            if err.errno == 1049:  # Unknown Database, so we need to create it
+                break
+            print(f"Database connection check attempt {attempt+1}/{max_retries} failed: {err}")
+            if attempt < max_retries - 1:
+                time.sleep(1)
+                
+    if last_err and last_err.errno == 1049:
+        print(f"Database '{db_name}' does not exist. Attempting to create it...")
+        for attempt in range(max_retries):
             try:
-                # Connect without specifying a database to create it
                 test_conn = mysql.connector.connect(
-                    host=db_config["host"],
-                    port=db_config.get("port", 3306),
-                    user=db_config["user"],
-                    password=db_config["password"],
-                    connect_timeout=10
+                    connect_timeout=10,
+                    **config_no_db
                 )
                 cursor = test_conn.cursor()
-                cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_config['database']}")
+                cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
                 test_conn.commit()
                 cursor.close()
                 test_conn.close()
-                print(f"Database '{db_config['database']}' created successfully.")
+                print(f"Database '{db_name}' created successfully.")
+                last_err = None
+                break
             except Exception as db_create_err:
-                print(f"Could not create database '{db_config['database']}': {db_create_err}")
-                raise db_create_err
-        else:
-            # Raise other connection errors (e.g. access denied, connection timeout)
-            raise err
-    
-    # Set up a connection pool (disable in serverless to prevent database connection exhaustion)
+                last_err = db_create_err
+                print(f"Database creation attempt {attempt+1}/{max_retries} failed: {db_create_err}")
+                if attempt < max_retries - 1:
+                    time.sleep(1)
+                    
+    if last_err:
+        print(f"FATAL: Database initialization failed: {last_err}")
+        raise RuntimeError(f"FATAL: MySQL Connection Failed: {last_err}")
+        
+    # 2. Set up connection pool if not on Vercel
     if os.getenv("VERCEL") == "1":
         print("Vercel/serverless environment detected. Disabling connection pooling to prevent database connection exhaustion.")
         connection_pool = None
     else:
-        connection_pool = mysql.connector.pooling.MySQLConnectionPool(
-            pool_name="mediai_pool",
-            pool_size=5,
-            pool_reset_session=True,
-            **db_config
-        )
-        print("Database Connection Pool Created Successfully (MySQL)")
-except Exception as err:
-    print(f"MySQL connection failed: {err}")
-    # Force raise the error in Vercel to prevent silent SQLite fallback
-    raise RuntimeError(f"FATAL: MySQL Connection Failed: {err}")
+        try:
+            connection_pool = mysql.connector.pooling.MySQLConnectionPool(
+                pool_name="mediai_pool",
+                pool_size=5,
+                pool_reset_session=True,
+                **db_config
+            )
+            print("Database Connection Pool Created Successfully (MySQL)")
+        except Exception as pool_err:
+            print(f"Warning: Failed to create connection pool: {pool_err}")
+            connection_pool = None
 
 def get_db_connection():
+    global _db_initialized, connection_pool
+    if not _db_initialized:
+        with _db_init_lock:
+            if not _db_initialized:
+                initialize_database()
+                _db_initialized = True
+                
     if connection_pool:
         return connection_pool.get_connection()
-    return mysql.connector.connect(**db_config)
+        
+    # Directly connect with retries
+    max_retries = 3
+    for attempt in range(max_retries):
+        try:
+            return mysql.connector.connect(connect_timeout=10, **db_config)
+        except mysql.connector.Error as err:
+            print(f"Database connection attempt {attempt+1}/{max_retries} failed: {err}")
+            if attempt < max_retries - 1:
+                time.sleep(1)
+            else:
+                raise err

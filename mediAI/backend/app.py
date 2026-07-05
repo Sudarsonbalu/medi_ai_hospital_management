@@ -82,9 +82,24 @@ def init_db_and_settings():
     except Exception as e:
         print(f"Error loading settings: {e}")
 
-# Run database migration check and load settings at module import time
-# This is necessary because Vercel/serverless environments do not reliably trigger FastAPI/Starlette startup events.
-init_db_and_settings()
+import threading
+
+_db_settings_initialized = False
+_db_settings_lock = threading.Lock()
+
+@app.middleware("http")
+async def db_settings_init_middleware(request, call_next):
+    global _db_settings_initialized
+    if not _db_settings_initialized:
+        with _db_settings_lock:
+            if not _db_settings_initialized:
+                try:
+                    init_db_and_settings()
+                    _db_settings_initialized = True
+                except Exception as e:
+                    print(f"Error in lazy database initialization: {e}")
+                    # Leave _db_settings_initialized as False so next request will retry
+    return await call_next(request)
 
 
 
